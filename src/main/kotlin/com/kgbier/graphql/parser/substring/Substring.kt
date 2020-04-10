@@ -4,6 +4,12 @@ class Substring(string: String) : CharSequence {
     private val backingString = string
     private var range: IntRange = 0..string.length
 
+    var state: IntRange
+        get() = range
+        set(value) {
+            range = value
+        }
+
     fun advance(characters: Int = 1) {
         range = (range.first + characters)..range.last
     }
@@ -14,7 +20,7 @@ class Substring(string: String) : CharSequence {
     override fun get(index: Int): Char = backingString[index + range.first]
 
     override fun subSequence(startIndex: Int, endIndex: Int): CharSequence =
-        backingString.subSequence(startIndex + range.first, endIndex + range.first)
+            backingString.subSequence(startIndex + range.first, endIndex + range.first)
 
 
     override fun toString(): String = backingString.substring(range.first, range.last)

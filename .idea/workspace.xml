@@ -2,7 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="466bc68f-724a-4b94-b01b-c2469b75281e" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/src/main/kotlin/com/kgbier/graphql/parser/tuples/Tuples.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/com/kgbier/graphql/parser/Parser.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/com/kgbier/graphql/parser/Parser.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/com/kgbier/graphql/parser/Parsers.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/com/kgbier/graphql/parser/Parsers.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/com/kgbier/graphql/parser/substring/Substring.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/com/kgbier/graphql/parser/substring/Substring.kt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -21,6 +25,7 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="JUnit5 Test Class" />
+        <option value="Kotlin File" />
       </list>
     </option>
   </component>
@@ -48,6 +53,12 @@
     <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5" value="" />
     <property name="last_directory_selection" value="$PROJECT_DIR$/src/main/kotlin/com/kgbier/graphql/parser" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/src/main/kotlin/graphql/parser" />
+    <property name="node.js.detected.package.eslint" value="true" />
+    <property name="node.js.detected.package.tslint" value="true" />
+    <property name="node.js.path.for.package.eslint" value="project" />
+    <property name="node.js.path.for.package.tslint" value="project" />
+    <property name="node.js.selected.package.eslint" value="(autodetect)" />
+    <property name="node.js.selected.package.tslint" value="(autodetect)" />
     <property name="show.unlinked.gradle.project.popup" value="true" />
   </component>
   <component name="RecentsManager">
@@ -129,7 +140,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1586048973853</updated>
-      <workItem from="1586048978416" duration="1229000" />
+      <workItem from="1586048978416" duration="4322000" />
     </task>
     <servers />
   </component>
@@ -137,6 +148,10 @@
     <option name="version" value="1" />
   </component>
   <component name="WindowStateProjectService">
+    <state x="747" y="334" key="#com.intellij.ide.util.MemberChooser" timestamp="1586052218744">
+      <screen x="0" y="23" width="1920" height="1177" />
+    </state>
+    <state x="747" y="334" key="#com.intellij.ide.util.MemberChooser/0.23.1920.1177@0.23.1920.1177" timestamp="1586052218744" />
     <state width="1878" height="291" key="GridCell.Tab.0.bottom" timestamp="1586049989342">
       <screen x="0" y="23" width="1920" height="1177" />
     </state>
@@ -165,5 +180,9 @@
       <screen x="0" y="23" width="1920" height="1177" />
     </state>
     <state x="728" y="345" key="org.jetbrains.kotlin.idea.testIntegration.KotlinCreateTestDialog/0.23.1920.1177@0.23.1920.1177" timestamp="1586049560366" />
+    <state x="625" y="288" width="670" height="676" key="search.everywhere.popup" timestamp="1586052717862">
+      <screen x="0" y="23" width="1920" height="1177" />
+    </state>
+    <state x="625" y="288" width="670" height="676" key="search.everywhere.popup/0.23.1920.1177@0.23.1920.1177" timestamp="1586052717862" />
   </component>
 </project>
