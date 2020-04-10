@@ -2,11 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="466bc68f-724a-4b94-b01b-c2469b75281e" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/kotlin/com/kgbier/graphql/parser/tuples/Tuples.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/kotlin/com/kgbier/graphql/parser/Parser.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/com/kgbier/graphql/parser/Parser.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/kotlin/com/kgbier/graphql/parser/Parsers.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/com/kgbier/graphql/parser/Parsers.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/com/kgbier/graphql/parser/substring/Substring.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/com/kgbier/graphql/parser/substring/Substring.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/com/kgbier/graphql/parser/tuples/Tuples.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/com/kgbier/graphql/parser/structure/Tuples.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/kotlin/com/kgbier/graphql/parser/ParsersTest.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/kotlin/com/kgbier/graphql/parser/ParsersTest.kt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -72,7 +72,7 @@
       <recent name="$PROJECT_DIR$/src/main/kotlin/graphql/parser" />
     </key>
   </component>
-  <component name="RunManager" selected="Gradle.ParsersTest.integer">
+  <component name="RunManager" selected="Gradle.ParsersTest.zeroOrMore">
     <configuration name="ParsersTest.getInteger" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
@@ -113,8 +113,50 @@
       <GradleScriptDebugEnabled>false</GradleScriptDebugEnabled>
       <method v="2" />
     </configuration>
+    <configuration name="ParsersTest.oneOrMore" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" value="--tests &quot;com.kgbier.graphql.parser.ParsersTest.oneOrMore&quot;" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value=":cleanTest" />
+            <option value=":test" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <GradleScriptDebugEnabled>false</GradleScriptDebugEnabled>
+      <method v="2" />
+    </configuration>
+    <configuration name="ParsersTest.zeroOrMore" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" value="--tests &quot;com.kgbier.graphql.parser.ParsersTest.zeroOrMore&quot;" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value=":cleanTest" />
+            <option value=":test" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <GradleScriptDebugEnabled>false</GradleScriptDebugEnabled>
+      <method v="2" />
+    </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Gradle.ParsersTest.zeroOrMore" />
+        <item itemvalue="Gradle.ParsersTest.oneOrMore" />
         <item itemvalue="Gradle.ParsersTest.integer" />
         <item itemvalue="Gradle.ParsersTest.getInteger" />
       </list>
@@ -140,7 +182,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1586048973853</updated>
-      <workItem from="1586048978416" duration="4322000" />
+      <workItem from="1586048978416" duration="6734000" />
     </task>
     <servers />
   </component>
@@ -148,34 +190,50 @@
     <option name="version" value="1" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="747" y="334" key="#com.intellij.ide.util.MemberChooser" timestamp="1586052218744">
+    <state x="747" y="334" key="#com.intellij.ide.util.MemberChooser" timestamp="1586055705346">
       <screen x="0" y="23" width="1920" height="1177" />
     </state>
-    <state x="747" y="334" key="#com.intellij.ide.util.MemberChooser/0.23.1920.1177@0.23.1920.1177" timestamp="1586052218744" />
-    <state width="1878" height="291" key="GridCell.Tab.0.bottom" timestamp="1586049989342">
+    <state x="747" y="334" key="#com.intellij.ide.util.MemberChooser/0.23.1920.1177@0.23.1920.1177" timestamp="1586055705346" />
+    <state width="1878" height="246" key="GridCell.Tab.0.bottom" timestamp="1586055831780">
       <screen x="0" y="23" width="1920" height="1177" />
     </state>
-    <state width="1878" height="291" key="GridCell.Tab.0.bottom/0.23.1920.1177@0.23.1920.1177" timestamp="1586049989342" />
-    <state width="1878" height="291" key="GridCell.Tab.0.center" timestamp="1586049989341">
+    <state width="1878" height="246" key="GridCell.Tab.0.bottom/0.23.1920.1177@0.23.1920.1177" timestamp="1586055831780" />
+    <state width="1878" height="246" key="GridCell.Tab.0.center" timestamp="1586055831779">
       <screen x="0" y="23" width="1920" height="1177" />
     </state>
-    <state width="1878" height="291" key="GridCell.Tab.0.center/0.23.1920.1177@0.23.1920.1177" timestamp="1586049989341" />
-    <state width="1878" height="291" key="GridCell.Tab.0.left" timestamp="1586049989340">
+    <state width="1878" height="246" key="GridCell.Tab.0.center/0.23.1920.1177@0.23.1920.1177" timestamp="1586055831779" />
+    <state width="1878" height="246" key="GridCell.Tab.0.left" timestamp="1586055831779">
       <screen x="0" y="23" width="1920" height="1177" />
     </state>
-    <state width="1878" height="291" key="GridCell.Tab.0.left/0.23.1920.1177@0.23.1920.1177" timestamp="1586049989340" />
-    <state width="1878" height="291" key="GridCell.Tab.0.right" timestamp="1586049989341">
+    <state width="1878" height="246" key="GridCell.Tab.0.left/0.23.1920.1177@0.23.1920.1177" timestamp="1586055831779" />
+    <state width="1878" height="246" key="GridCell.Tab.0.right" timestamp="1586055831780">
       <screen x="0" y="23" width="1920" height="1177" />
     </state>
-    <state width="1878" height="291" key="GridCell.Tab.0.right/0.23.1920.1177@0.23.1920.1177" timestamp="1586049989341" />
+    <state width="1878" height="246" key="GridCell.Tab.0.right/0.23.1920.1177@0.23.1920.1177" timestamp="1586055831780" />
+    <state width="1878" height="405" key="GridCell.Tab.1.bottom" timestamp="1586055258272">
+      <screen x="0" y="23" width="1920" height="1177" />
+    </state>
+    <state width="1878" height="405" key="GridCell.Tab.1.bottom/0.23.1920.1177@0.23.1920.1177" timestamp="1586055258272" />
+    <state width="1878" height="405" key="GridCell.Tab.1.center" timestamp="1586055258271">
+      <screen x="0" y="23" width="1920" height="1177" />
+    </state>
+    <state width="1878" height="405" key="GridCell.Tab.1.center/0.23.1920.1177@0.23.1920.1177" timestamp="1586055258271" />
+    <state width="1878" height="405" key="GridCell.Tab.1.left" timestamp="1586055258271">
+      <screen x="0" y="23" width="1920" height="1177" />
+    </state>
+    <state width="1878" height="405" key="GridCell.Tab.1.left/0.23.1920.1177@0.23.1920.1177" timestamp="1586055258271" />
+    <state width="1878" height="405" key="GridCell.Tab.1.right" timestamp="1586055258272">
+      <screen x="0" y="23" width="1920" height="1177" />
+    </state>
+    <state width="1878" height="405" key="GridCell.Tab.1.right/0.23.1920.1177@0.23.1920.1177" timestamp="1586055258272" />
     <state x="755" y="396" key="chooseDestDirectoryDialog" timestamp="1586049515308">
       <screen x="0" y="23" width="1920" height="1177" />
     </state>
     <state x="755" y="396" key="chooseDestDirectoryDialog/0.23.1920.1177@0.23.1920.1177" timestamp="1586049515308" />
-    <state x="626" y="368" width="667" height="486" key="find.popup" timestamp="1586049464996">
+    <state x="626" y="368" width="667" height="486" key="find.popup" timestamp="1586054816197">
       <screen x="0" y="23" width="1920" height="1177" />
     </state>
-    <state x="626" y="368" width="667" height="486" key="find.popup/0.23.1920.1177@0.23.1920.1177" timestamp="1586049464996" />
+    <state x="626" y="368" width="667" height="486" key="find.popup/0.23.1920.1177@0.23.1920.1177" timestamp="1586054816197" />
     <state x="728" y="345" key="org.jetbrains.kotlin.idea.testIntegration.KotlinCreateTestDialog" timestamp="1586049560366">
       <screen x="0" y="23" width="1920" height="1177" />
     </state>

@@ -1,4 +1,4 @@
-package com.kgbier.graphql.parser.tuples
+package com.kgbier.graphql.parser.structure
 
 data class Tuple2<out A, out B>(
         val first: A,

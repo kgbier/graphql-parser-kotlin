@@ -1,8 +1,68 @@
 package com.kgbier.graphql.parser
 
+import com.kgbier.graphql.parser.structure.Maybe
 import com.kgbier.graphql.parser.substring.Substring
 
 object Parsers {
+
+    val always = object : Parser<Unit> {
+        override fun run(str: Substring) = Unit
+    }
+
+    fun <A> always(a: A) = object : Parser<A> {
+        override fun run(str: Substring) = a
+    }
+
+    fun <A> never() = object : Parser<A> {
+        override fun run(str: Substring): A? = null
+    }
+
+    fun <A, B> zeroOrMore(p: Parser<A>, separatedBy: Parser<B>? = null) = object : Parser<List<A>> {
+        override fun run(str: Substring): List<A>? {
+            var remainderState = str.state
+            val matches = mutableListOf<A>()
+            var quit = false
+            while (true) {
+                val match = p.parse(str) ?: break
+                remainderState = str.state
+                matches.add(match)
+                separatedBy?.parse(str) ?: return matches
+            }
+            str.state = remainderState
+            return matches
+        }
+    }
+
+    fun <A, B> oneOrMore(p: Parser<A>, separatedBy: Parser<B>? = null) = zeroOrMore(p, separatedBy).flatMap {
+        if (it.isEmpty()) never() else always(it)
+    }
+
+    fun <A> oneOf(ps: List<Parser<A>>) = object : Parser<A> {
+        override fun run(str: Substring): A? {
+            for (p in ps) {
+                val match = p.run(str)
+                if (match != null) return match
+            }
+            return null
+        }
+    }
+
+    fun <A> notOneOf(ps: List<Parser<A>>) = object : Parser<Unit> {
+        override fun run(str: Substring): Unit? {
+            for (p in ps) {
+                val match = p.run(str)
+                if (match != null) return null
+            }
+            return Unit
+        }
+    }
+
+    fun <A> maybe(p: Parser<A>) = object : Parser<Maybe<A>> {
+        override fun run(str: Substring): Maybe<A>? {
+            val match = p.parse(str)
+            return Maybe(match)
+        }
+    }
 
     val integer = object : Parser<Int> {
         override fun run(str: Substring): Int? {
@@ -24,7 +84,7 @@ object Parsers {
         }
     }
 
-    fun characterOf(char: Char) = object : Parser<Char> {
+    fun character(char: Char) = object : Parser<Char> {
         override fun run(str: Substring): Char? {
             return if (str.first() == char) {
                 str.advance()

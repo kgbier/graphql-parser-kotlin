@@ -1,14 +1,14 @@
 package com.kgbier.graphql.parser
 
 import com.kgbier.graphql.parser.substring.Substring
-import com.kgbier.graphql.parser.tuples.Tuple2
-import com.kgbier.graphql.parser.tuples.Tuple3
-import com.kgbier.graphql.parser.tuples.Tuple4
-import com.kgbier.graphql.parser.tuples.Tuple5
-import com.kgbier.graphql.parser.tuples.Tuple6
-import com.kgbier.graphql.parser.tuples.Tuple7
-import com.kgbier.graphql.parser.tuples.Tuple8
-import com.kgbier.graphql.parser.tuples.Tuple9
+import com.kgbier.graphql.parser.structure.Tuple2
+import com.kgbier.graphql.parser.structure.Tuple3
+import com.kgbier.graphql.parser.structure.Tuple4
+import com.kgbier.graphql.parser.structure.Tuple5
+import com.kgbier.graphql.parser.structure.Tuple6
+import com.kgbier.graphql.parser.structure.Tuple7
+import com.kgbier.graphql.parser.structure.Tuple8
+import com.kgbier.graphql.parser.structure.Tuple9
 
 interface Parser<A> {
     fun run(str: Substring): A?
