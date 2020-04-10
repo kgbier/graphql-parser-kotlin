@@ -17,7 +17,13 @@ object Parsers {
         override fun run(str: Substring): A? = null
     }
 
-    fun <A, B> zeroOrMore(p: Parser<A>, separatedBy: Parser<B>? = null) = object : Parser<List<A>> {
+    fun <A> deferred(f: () -> Parser<A>) = object : Parser<A> {
+        override fun run(str: Substring): A? = f().parse(str)
+    }
+
+    fun <A> zeroOrMore(p: Parser<A>) = zeroOrMore<A, Unit>(p, null)
+
+    fun <A, B> zeroOrMore(p: Parser<A>, separatedBy: Parser<B>?) = object : Parser<List<A>> {
         override fun run(str: Substring): List<A>? {
             var remainderState = str.state
             val matches = mutableListOf<A>()
@@ -33,7 +39,9 @@ object Parsers {
         }
     }
 
-    fun <A, B> oneOrMore(p: Parser<A>, separatedBy: Parser<B>? = null) = zeroOrMore(p, separatedBy).flatMap {
+    fun <A> oneOrMore(p: Parser<A>) = oneOrMore<A, Unit>(p, null)
+
+    fun <A, B> oneOrMore(p: Parser<A>, separatedBy: Parser<B>?) = zeroOrMore(p, separatedBy).flatMap {
         if (it.isEmpty()) never() else always(it)
     }
 
@@ -93,15 +101,15 @@ object Parsers {
         }
     }
 
-    fun literal(literal: String) = object : Parser<String> {
-        override fun run(str: Substring): String? {
+    fun literal(literal: String) = object : Parser<Unit> {
+        override fun run(str: Substring): Unit? {
             return if (str.startsWith(literal)) {
                 str.advance(literal.length)
-                literal
             } else null
         }
     }
 
+    // TODO: consider `Substring` instead of `String`?
     fun prefix(predicate: (Char) -> Boolean) = object :
             Parser<String> {
         override fun run(str: Substring): String? {

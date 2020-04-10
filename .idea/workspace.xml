@@ -5,8 +5,6 @@
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/kotlin/com/kgbier/graphql/parser/Parser.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/com/kgbier/graphql/parser/Parser.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/kotlin/com/kgbier/graphql/parser/Parsers.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/com/kgbier/graphql/parser/Parsers.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/com/kgbier/graphql/parser/tuples/Tuples.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/com/kgbier/graphql/parser/structure/Tuples.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/kotlin/com/kgbier/graphql/parser/ParsersTest.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/kotlin/com/kgbier/graphql/parser/ParsersTest.kt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -182,7 +180,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1586048973853</updated>
-      <workItem from="1586048978416" duration="6734000" />
+      <workItem from="1586048978416" duration="16363000" />
     </task>
     <servers />
   </component>
@@ -238,9 +236,9 @@
       <screen x="0" y="23" width="1920" height="1177" />
     </state>
     <state x="728" y="345" key="org.jetbrains.kotlin.idea.testIntegration.KotlinCreateTestDialog/0.23.1920.1177@0.23.1920.1177" timestamp="1586049560366" />
-    <state x="625" y="288" width="670" height="676" key="search.everywhere.popup" timestamp="1586052717862">
+    <state x="625" y="288" width="670" height="676" key="search.everywhere.popup" timestamp="1586086617470">
       <screen x="0" y="23" width="1920" height="1177" />
     </state>
-    <state x="625" y="288" width="670" height="676" key="search.everywhere.popup/0.23.1920.1177@0.23.1920.1177" timestamp="1586052717862" />
+    <state x="625" y="288" width="670" height="676" key="search.everywhere.popup/0.23.1920.1177@0.23.1920.1177" timestamp="1586086617470" />
   </component>
 </project>
