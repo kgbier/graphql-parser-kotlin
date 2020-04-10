@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="466bc68f-724a-4b94-b01b-c2469b75281e" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="CodeStyleSettingsInfer">
+    <option name="done" value="true" />
+  </component>
+  <component name="ExternalProjectsData">
+    <projectState path="$PROJECT_DIR$">
+      <ProjectState />
+    </projectState>
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="JUnit5 Test Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectCodeStyleSettingsMigration">
+    <option name="version" value="1" />
+  </component>
+  <component name="ProjectId" id="1a6H9mA7JvfhcY03Jt6cOKwvUV6" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="1" id="Add" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showExcludedFiles" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="aspect.path.notification.shown" value="true" />
+    <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary" value="JUnit5" />
+    <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5" value="" />
+    <property name="last_directory_selection" value="$PROJECT_DIR$/src/main/kotlin/com/kgbier/graphql/parser" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/main/kotlin/graphql/parser" />
+    <property name="show.unlinked.gradle.project.popup" value="true" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CreateTestDialog.RecentsKey">
+      <recent name="com.kgbier.graphql.parser" />
+    </key>
+    <key name="CreateTestDialog.Recents.Supers">
+      <recent name="" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/main/kotlin/graphql/parser" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Gradle.ParsersTest.integer">
+    <configuration name="ParsersTest.getInteger" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" value="--tests &quot;com.kgbier.graphql.parser.ParsersTest.getInteger&quot;" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value=":cleanTest" />
+            <option value=":test" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <GradleScriptDebugEnabled>false</GradleScriptDebugEnabled>
+      <method v="2" />
+    </configuration>
+    <configuration name="ParsersTest.integer" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" value="--tests &quot;com.kgbier.graphql.parser.ParsersTest.integer&quot;" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value=":cleanTest" />
+            <option value=":test" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <GradleScriptDebugEnabled>false</GradleScriptDebugEnabled>
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Gradle.ParsersTest.integer" />
+        <item itemvalue="Gradle.ParsersTest.getInteger" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SbtLocalSettings">
+    <option name="projectSyncType">
+      <map>
+        <entry key="$USER_HOME$/src/intro-to-scala" value="PREVIEW" />
+      </map>
+    </option>
+  </component>
+  <component name="ServiceViewManager">
+    <option name="showServicesTree" value="false" />
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="466bc68f-724a-4b94-b01b-c2469b75281e" name="Default Changelist" comment="" />
+      <created>1586048973853</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1586048973853</updated>
+      <workItem from="1586048978416" duration="1229000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="1" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state width="1878" height="291" key="GridCell.Tab.0.bottom" timestamp="1586049989342">
+      <screen x="0" y="23" width="1920" height="1177" />
+    </state>
+    <state width="1878" height="291" key="GridCell.Tab.0.bottom/0.23.1920.1177@0.23.1920.1177" timestamp="1586049989342" />
+    <state width="1878" height="291" key="GridCell.Tab.0.center" timestamp="1586049989341">
+      <screen x="0" y="23" width="1920" height="1177" />
+    </state>
+    <state width="1878" height="291" key="GridCell.Tab.0.center/0.23.1920.1177@0.23.1920.1177" timestamp="1586049989341" />
+    <state width="1878" height="291" key="GridCell.Tab.0.left" timestamp="1586049989340">
+      <screen x="0" y="23" width="1920" height="1177" />
+    </state>
+    <state width="1878" height="291" key="GridCell.Tab.0.left/0.23.1920.1177@0.23.1920.1177" timestamp="1586049989340" />
+    <state width="1878" height="291" key="GridCell.Tab.0.right" timestamp="1586049989341">
+      <screen x="0" y="23" width="1920" height="1177" />
+    </state>
+    <state width="1878" height="291" key="GridCell.Tab.0.right/0.23.1920.1177@0.23.1920.1177" timestamp="1586049989341" />
+    <state x="755" y="396" key="chooseDestDirectoryDialog" timestamp="1586049515308">
+      <screen x="0" y="23" width="1920" height="1177" />
+    </state>
+    <state x="755" y="396" key="chooseDestDirectoryDialog/0.23.1920.1177@0.23.1920.1177" timestamp="1586049515308" />
+    <state x="626" y="368" width="667" height="486" key="find.popup" timestamp="1586049464996">
+      <screen x="0" y="23" width="1920" height="1177" />
+    </state>
+    <state x="626" y="368" width="667" height="486" key="find.popup/0.23.1920.1177@0.23.1920.1177" timestamp="1586049464996" />
+    <state x="728" y="345" key="org.jetbrains.kotlin.idea.testIntegration.KotlinCreateTestDialog" timestamp="1586049560366">
+      <screen x="0" y="23" width="1920" height="1177" />
+    </state>
+    <state x="728" y="345" key="org.jetbrains.kotlin.idea.testIntegration.KotlinCreateTestDialog/0.23.1920.1177@0.23.1920.1177" timestamp="1586049560366" />
+  </component>
+</project>
