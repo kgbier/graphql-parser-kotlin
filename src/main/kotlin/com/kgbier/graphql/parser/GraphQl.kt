@@ -528,14 +528,14 @@ internal class GraphQl {
     ))
 
     // executableDefinition -> [ operationDefinition fragmentDefinition ]
-    val executableDefinition: Parser<ExecutableDefinition> = oneOf(listOf(
-            operationDefinition.map { ExecutableDefinitionOperation(it) }.eraseTo(),
-            fragmentDefinition.map { ExecutableDefinitionFragment(it) }.eraseTo()
+    val executableDefinition = oneOf(listOf(
+            operationDefinition.map { ExecutableDefinitionOperation(it) },
+            fragmentDefinition.map { ExecutableDefinitionFragment(it) }
     ))
 
     // definition -> [ executableDefinition typeSystemDefinition TypeSystemExtension ]
-    val definition: Parser<Definition> = oneOf(listOf(
-            executableDefinition.map { DefinitionExecutable(it) }.eraseTo()
+    val definition = oneOf(listOf(
+            executableDefinition.map { DefinitionExecutable(it) }
             // typeSystemDefinition, // GraphQL schema and other types not supported
             // TypeSystemExtension, // GraphQL schema and other types not supported
     ))
@@ -546,15 +546,15 @@ internal class GraphQl {
 
     init {
         valueDeferred = oneOf(listOf(
-                variableValue.eraseTo(),
-                stringValue.eraseTo(),
-                objectValue.eraseTo(),
-                listValue.eraseTo(),
-                nullValue.eraseTo(),
-                booleanValue.eraseTo(),
-                enumValue.eraseTo(),
-                floatValue.eraseTo(),
-                intValue.eraseTo()
+                variableValue,
+                stringValue,
+                objectValue,
+                listValue,
+                nullValue,
+                booleanValue,
+                enumValue,
+                floatValue,
+                intValue
         ))
 
         typeDeferred = oneOf(listOf(

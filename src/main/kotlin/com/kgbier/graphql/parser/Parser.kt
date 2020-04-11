@@ -32,11 +32,6 @@ internal fun <A> Parser<A>.erase(): Parser<Unit> = object : Parser<Unit> {
     override fun run(str: Substring) = this@erase.parse(str)?.let { Unit }
 }
 
-fun <A, B> Parser<A>.eraseTo(): Parser<B> = object : Parser<B> {
-    @Suppress("UNCHECKED_CAST")
-    override fun run(str: Substring) = this@eraseTo.parse(str) as B?
-}
-
 internal inline fun <A, B> Parser<A>.flatMap(crossinline f: (A) -> Parser<B>): Parser<B> = object : Parser<B> {
     override fun run(str: Substring): B? {
         val originalState = str.state
