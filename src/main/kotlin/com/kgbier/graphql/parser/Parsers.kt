@@ -3,7 +3,7 @@ package com.kgbier.graphql.parser
 import com.kgbier.graphql.parser.structure.Maybe
 import com.kgbier.graphql.parser.substring.Substring
 
-object Parsers {
+internal object Parsers {
 
     val always = object : Parser<Unit> {
         override fun run(str: Substring) = Unit

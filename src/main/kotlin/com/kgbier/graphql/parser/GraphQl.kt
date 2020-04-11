@@ -12,7 +12,7 @@ import com.kgbier.graphql.parser.Parsers.oneOrMore
 import com.kgbier.graphql.parser.Parsers.zeroOrMore
 import com.kgbier.graphql.parser.structure.*
 
-class GraphQl {
+internal class GraphQl {
 
     /**
      * Language
