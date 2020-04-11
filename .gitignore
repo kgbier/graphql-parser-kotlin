@@ -3,3 +3,9 @@
 
 # Ignore Gradle build output directory
 build
+
+# User-specific stuff
+.idea/**/workspace.xml
+
+# Gradle
+.idea/**/gradle.xml
