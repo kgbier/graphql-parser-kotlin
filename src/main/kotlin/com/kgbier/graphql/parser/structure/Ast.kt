@@ -5,7 +5,7 @@ data class Document(
 )
 
 sealed class Definition {
-    data class DefinitionExecutable(val definition: ExecutableDefinition)
+    data class DefinitionExecutable(val definition: ExecutableDefinition) : Definition()
 }
 
 sealed class ExecutableDefinition {
