@@ -10,7 +10,7 @@ object GraphQLParser {
     private val parser = GraphQl()
 
     internal fun parseWithResult(str: String): GraphQlParseResult {
-        val result = parser.document.parse(str)
+        val result = parser.document.parse(str.trim())
         return GraphQlParseResult(result.match, result.rest)
     }
 
