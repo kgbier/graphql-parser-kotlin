@@ -15,7 +15,7 @@ class Substring(string: String) : CharSequence {
     }
 
     override val length: Int
-        get() = range.count()
+        get() = range.last - range.first
 
     override fun get(index: Int): Char = backingString[index + range.first]
 

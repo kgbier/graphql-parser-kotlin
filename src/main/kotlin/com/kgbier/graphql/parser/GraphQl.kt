@@ -128,9 +128,10 @@ class GraphQl {
             oneOrMore(digit)
     ).flatMap { (negative, digits) ->
         if (digits.count() > 1 && digits.first() == '0') {
-            always("$negative$digits")
+            never()
         } else {
-            always("$digits")
+            val maybeNegative = negative.wrappedValue ?: ""
+            always("${maybeNegative}${digits.joinToString("")}")
         }
     }
 
@@ -508,7 +509,7 @@ class GraphQl {
 
     // operationDefinition -> [ " operationType name? variableDefinitions? directives? selectionSet "
     //                          selectionSet ]
-    val operationDefinition = oneOf(listOf(
+    val operationDefinition: Parser<OperationDefinition> = oneOf(listOf(
             zip(operationType,
                     tokenSeparator,
                     maybe(name),
@@ -530,9 +531,9 @@ class GraphQl {
     ))
 
     // executableDefinition -> [ operationDefinition fragmentDefinition ]
-    val executableDefinition = oneOf(listOf(
-            operationDefinition.map { ExecutableDefinition.ExecutableDefinitionOperation(it) },
-            fragmentDefinition.map { ExecutableDefinition.ExecutableDefinitionFragment(it) }
+    val executableDefinition: Parser<ExecutableDefinition> = oneOf(listOf(
+            operationDefinition.map { ExecutableDefinition.ExecutableDefinitionOperation(it) }.eraseTo(),
+            fragmentDefinition.map { ExecutableDefinition.ExecutableDefinitionFragment(it) }.eraseTo()
     ))
 
     // definition -> [ executableDefinition typeSystemDefinition TypeSystemExtension ]

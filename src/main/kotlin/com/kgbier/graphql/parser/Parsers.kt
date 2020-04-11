@@ -27,12 +27,13 @@ object Parsers {
         override fun run(str: Substring): List<A>? {
             var remainderState = str.state
             val matches = mutableListOf<A>()
-            var quit = false
             while (true) {
                 val match = p.parse(str) ?: break
                 remainderState = str.state
                 matches.add(match)
-                separatedBy?.parse(str) ?: return matches
+                if(separatedBy != null) {
+                    separatedBy.parse(str) ?: return matches
+                }
             }
             str.state = remainderState
             return matches
@@ -45,7 +46,7 @@ object Parsers {
         if (it.isEmpty()) never() else always(it)
     }
 
-    fun <A> oneOf(ps: List<Parser<A>>) = object : Parser<A> {
+    fun <A> oneOf(ps: List<Parser<out A>>) = object : Parser<A> {
         override fun run(str: Substring): A? {
             for (p in ps) {
                 val match = p.run(str)
@@ -94,7 +95,7 @@ object Parsers {
 
     fun character(char: Char) = object : Parser<Char> {
         override fun run(str: Substring): Char? {
-            return if (str.first() == char) {
+            return if (str.isNotEmpty() && str.first() == char) {
                 str.advance()
                 char
             } else null
