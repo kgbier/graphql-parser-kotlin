@@ -25,11 +25,11 @@ fun <A> Parser<A>.parse(str: String): ParseResult<A> {
 }
 
 inline fun <A, B> Parser<A>.map(crossinline f: (A) -> B): Parser<B> = object : Parser<B> {
-    override fun run(str: Substring): B? = this@map.run(str)?.let(f)
+    override fun run(str: Substring): B? = this@map.parse(str)?.let(f)
 }
 
 fun <A> Parser<A>.erase(): Parser<Unit> = object : Parser<Unit> {
-    override fun run(str: Substring) = Unit
+    override fun run(str: Substring) = this@erase.parse(str)?.let { Unit }
 }
 
 fun <A, B> Parser<A>.eraseTo(): Parser<B> = object : Parser<B> {

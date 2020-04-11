@@ -31,7 +31,7 @@ object Parsers {
                 val match = p.parse(str) ?: break
                 remainderState = str.state
                 matches.add(match)
-                if(separatedBy != null) {
+                if (separatedBy != null) {
                     separatedBy.parse(str) ?: return matches
                 }
             }

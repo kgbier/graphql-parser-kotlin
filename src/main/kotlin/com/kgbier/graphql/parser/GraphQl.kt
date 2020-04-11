@@ -154,7 +154,7 @@ class GraphQl {
     val fractionalPart = zip(
             literal("."),
             oneOrMore(digit)
-    ).map { (_, digits) -> digits.toString() }
+    ).map { (_, digits) -> digits.joinToString("") }
 
 
     // exponentPart -> " exponentIndicator sign? { digit } "
@@ -163,11 +163,8 @@ class GraphQl {
             maybe(sign),
             oneOrMore(digit)
     ).map { (_, sign, digits) ->
-        if (sign.wrappedValue != null) {
-            "e$sign$digits"
-        } else {
-            "e+$digits"
-        }
+        val maybeSign = sign.wrappedValue ?: "+"
+        "e$maybeSign${digits.joinToString("")}"
     }
 
     // floatValue -> [ " integerPart fractionalPart "
@@ -232,7 +229,7 @@ class GraphQl {
             literal("\""),
             zeroOrMore(stringCharacter),
             literal("\"")
-    ).map { (_, chars, _) -> Value.ValueString(chars.toString()) }
+    ).map { (_, chars, _) -> Value.ValueString(chars.joinToString("")) }
     // TODO: block strings
 
     // nullValue -> 'null'
