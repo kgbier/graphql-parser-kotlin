@@ -302,13 +302,13 @@ internal class GraphQlTest {
     fun selection() {
         fun testSubject(str: String): List<Selection>? = graphQlparser.selectionSet.parse(str).match
 
-        assertEquals(listOf(Selection.SelectionField(Field(null, "abc", emptyList(), emptyList(), emptyList())),
-                Selection.SelectionField(Field(null, "def", emptyList(), emptyList(), emptyList())),
-                Selection.SelectionField(Field(null, "xyz", emptyList(), emptyList(), emptyList()))),
+        assertEquals(listOf(SelectionField(Field(null, "abc", emptyList(), emptyList(), emptyList())),
+                SelectionField(Field(null, "def", emptyList(), emptyList(), emptyList())),
+                SelectionField(Field(null, "xyz", emptyList(), emptyList(), emptyList()))),
                 testSubject("{abc def,xyz}"))
-        assertEquals(listOf(Selection.SelectionField(Field(null, "abc", emptyList(), emptyList(), emptyList())),
-                Selection.SelectionField(Field(null, "def", emptyList(), emptyList(), emptyList())),
-                Selection.SelectionField(Field(null, "xyz", emptyList(), emptyList(), emptyList()))),
+        assertEquals(listOf(SelectionField(Field(null, "abc", emptyList(), emptyList(), emptyList())),
+                SelectionField(Field(null, "def", emptyList(), emptyList(), emptyList())),
+                SelectionField(Field(null, "xyz", emptyList(), emptyList(), emptyList()))),
                 testSubject("{ abc def,xyz }"))
     }
 
@@ -336,9 +336,9 @@ internal class GraphQlTest {
                 testSubject("named@annotated"))
         assertEquals(Field(null, "named", emptyList(), listOf(Directive("annotated", listOf(Argument("with", Value.ValueInt("123"))))), emptyList()),
                 testSubject("named@annotated(with:123)"))
-        assertEquals(Field("alias", "named", listOf(Argument("with", Value.ValueInt("123"))), listOf(Directive("annotated", listOf(Argument("with", Value.ValueInt("456"))))), listOf(Selection.SelectionField(Field(null, "also", emptyList(), emptyList(), emptyList())))),
+        assertEquals(Field("alias", "named", listOf(Argument("with", Value.ValueInt("123"))), listOf(Directive("annotated", listOf(Argument("with", Value.ValueInt("456"))))), listOf(SelectionField(Field(null, "also", emptyList(), emptyList(), emptyList())))),
                 testSubject("alias:named(with:123)@annotated(with:456){ also }"))
-        assertEquals(Field("alias", "named", listOf(Argument("with", Value.ValueInt("123"))), listOf(Directive("annotated", listOf(Argument("with", Value.ValueInt("456"))))), listOf(Selection.SelectionField(Field(null, "also", emptyList(), emptyList(), emptyList())))),
+        assertEquals(Field("alias", "named", listOf(Argument("with", Value.ValueInt("123"))), listOf(Directive("annotated", listOf(Argument("with", Value.ValueInt("456"))))), listOf(SelectionField(Field(null, "also", emptyList(), emptyList(), emptyList())))),
                 testSubject("alias : named ( with : 123 ) @annotated ( with: 456 ) { also }"))
     }
 
@@ -416,22 +416,22 @@ internal class GraphQlTest {
     fun operationDefinition() {
         fun testSubject(str: String): OperationDefinition? = graphQlparser.operationDefinition.parse(str).match
 
-        assertEquals(OperationDefinition.OperationDefinitionSelectionSet(emptyList()), testSubject("{}"))
-        assertEquals(OperationDefinition.OperationDefinitionOperation(OperationDefinition.Operation(OperationType.QUERY, null, emptyList(), emptyList(), emptyList())),
+        assertEquals(OperationDefinitionSelectionSet(emptyList()), testSubject("{}"))
+        assertEquals(OperationDefinitionOperation(OperationDefinition.Operation(OperationType.QUERY, null, emptyList(), emptyList(), emptyList())),
                 testSubject("query"))
-        assertEquals(OperationDefinition.OperationDefinitionOperation(OperationDefinition.Operation(OperationType.QUERY, "named", emptyList(), emptyList(), emptyList())),
+        assertEquals(OperationDefinitionOperation(OperationDefinition.Operation(OperationType.QUERY, "named", emptyList(), emptyList(), emptyList())),
                 testSubject("query named"))
-        assertEquals(OperationDefinition.OperationDefinitionOperation(OperationDefinition.Operation(OperationType.QUERY, null, listOf(VariableDefinition("abc", "Int", null), VariableDefinition("xyz", "Int", null)), emptyList(), emptyList())),
+        assertEquals(OperationDefinitionOperation(OperationDefinition.Operation(OperationType.QUERY, null, listOf(VariableDefinition("abc", "Int", null), VariableDefinition("xyz", "Int", null)), emptyList(), emptyList())),
                 testSubject("query (\$abc:Int, \$xyz:Int)"))
-        assertEquals(OperationDefinition.OperationDefinitionOperation(OperationDefinition.Operation(OperationType.QUERY, null, emptyList(), listOf(Directive("annotated", emptyList()), Directive("with", emptyList())), emptyList())),
+        assertEquals(OperationDefinitionOperation(OperationDefinition.Operation(OperationType.QUERY, null, emptyList(), listOf(Directive("annotated", emptyList()), Directive("with", emptyList())), emptyList())),
                 testSubject("query @annotated @with"))
-        assertEquals(OperationDefinition.OperationDefinitionOperation(OperationDefinition.Operation(OperationType.QUERY, null, emptyList(), emptyList(), emptyList())),
+        assertEquals(OperationDefinitionOperation(OperationDefinition.Operation(OperationType.QUERY, null, emptyList(), emptyList(), emptyList())),
                 testSubject("query {}"))
-        assertEquals(OperationDefinition.OperationDefinitionOperation(OperationDefinition.Operation(OperationType.QUERY, "named", listOf(VariableDefinition("abc", "Int", null)), listOf(Directive("annotated", emptyList())), emptyList())),
+        assertEquals(OperationDefinitionOperation(OperationDefinition.Operation(OperationType.QUERY, "named", listOf(VariableDefinition("abc", "Int", null)), listOf(Directive("annotated", emptyList())), emptyList())),
                 testSubject("query named (\$abc: Int) @annotated {}"))
-        assertEquals(OperationDefinition.OperationDefinitionOperation(OperationDefinition.Operation(OperationType.MUTATION, "named", listOf(VariableDefinition("abc", "Int", null)), listOf(Directive("annotated", emptyList())), emptyList())),
+        assertEquals(OperationDefinitionOperation(OperationDefinition.Operation(OperationType.MUTATION, "named", listOf(VariableDefinition("abc", "Int", null)), listOf(Directive("annotated", emptyList())), emptyList())),
                 testSubject("mutation named (\$abc: Int) @annotated {}"))
-        assertEquals(OperationDefinition.OperationDefinitionOperation(OperationDefinition.Operation(OperationType.SUBSCRIPTION, "named", listOf(VariableDefinition("abc", "Int", null)), listOf(Directive("annotated", emptyList())), emptyList())),
+        assertEquals(OperationDefinitionOperation(OperationDefinition.Operation(OperationType.SUBSCRIPTION, "named", listOf(VariableDefinition("abc", "Int", null)), listOf(Directive("annotated", emptyList())), emptyList())),
                 testSubject("subscription named (\$abc: Int) @annotated {}"))
         assertNull(testSubject("invalid named (\$abc: Int) @annotated {}"))
     }
@@ -440,11 +440,11 @@ internal class GraphQlTest {
     fun executableDefinition() {
         fun testSubject(str: String): ExecutableDefinition? = graphQlparser.executableDefinition.parse(str).match
 
-        assertEquals(ExecutableDefinition.ExecutableDefinitionOperation(OperationDefinition.OperationDefinitionSelectionSet(emptyList())),
+        assertEquals(ExecutableDefinitionOperation(OperationDefinitionSelectionSet(emptyList())),
                 testSubject("{}"))
-        assertEquals(ExecutableDefinition.ExecutableDefinitionOperation(OperationDefinition.OperationDefinitionOperation(OperationDefinition.Operation(OperationType.QUERY, "named", listOf(VariableDefinition("abc", "Int", null)), listOf(Directive("annotated", emptyList())), emptyList()))),
+        assertEquals(ExecutableDefinitionOperation(OperationDefinitionOperation(OperationDefinition.Operation(OperationType.QUERY, "named", listOf(VariableDefinition("abc", "Int", null)), listOf(Directive("annotated", emptyList())), emptyList()))),
                 testSubject("query named (\$abc: Int) @annotated {}"))
-        assertEquals(ExecutableDefinition.ExecutableDefinitionFragment(FragmentDefinition("named", TypeCondition("typename"), listOf(Directive("annotated", emptyList())), emptyList())),
+        assertEquals(ExecutableDefinitionFragment(FragmentDefinition("named", TypeCondition("typename"), listOf(Directive("annotated", emptyList())), emptyList())),
                 testSubject("fragment named on typename @annotated {}"))
     }
 
@@ -453,9 +453,9 @@ internal class GraphQlTest {
         fun testSubject(str: String): Document? = graphQlparser.document.parse(str).match
 
         assertEquals(Document(listOf(
-                Definition.DefinitionExecutable(ExecutableDefinition.ExecutableDefinitionOperation(OperationDefinition.OperationDefinitionOperation(
+                DefinitionExecutable(ExecutableDefinitionOperation(OperationDefinitionOperation(
                         OperationDefinition.Operation(OperationType.QUERY, "named", listOf(VariableDefinition("abc", "Int", null)), listOf(Directive("annotated", emptyList())), emptyList())))),
-                Definition.DefinitionExecutable(ExecutableDefinition.ExecutableDefinitionFragment(
+                DefinitionExecutable(ExecutableDefinitionFragment(
                         FragmentDefinition("named", TypeCondition("typename"), listOf(Directive("annotated", emptyList())), emptyList()))))),
                 testSubject("query named (\$abc: Int) @annotated {} \n fragment named on typename @annotated {}"))
     }

@@ -517,25 +517,25 @@ class GraphQl {
                     tokenSeparator,
                     maybe(selectionSet)
             ).map { (operationType, _, name, _, variableDefinitions, _, directives, _, selectionSet) ->
-                OperationDefinition.OperationDefinitionOperation(OperationDefinition.Operation(
+                OperationDefinitionOperation(OperationDefinition.Operation(
                         operationType,
                         name.wrappedValue,
                         variableDefinitions.wrappedValue ?: emptyList(),
                         directives.wrappedValue ?: emptyList(),
                         selectionSet.wrappedValue ?: emptyList()))
             },
-            selectionSet.map { OperationDefinition.OperationDefinitionSelectionSet(it) }
+            selectionSet.map { OperationDefinitionSelectionSet(it) }
     ))
 
     // executableDefinition -> [ operationDefinition fragmentDefinition ]
     val executableDefinition: Parser<ExecutableDefinition> = oneOf(listOf(
-            operationDefinition.map { ExecutableDefinition.ExecutableDefinitionOperation(it) }.eraseTo(),
-            fragmentDefinition.map { ExecutableDefinition.ExecutableDefinitionFragment(it) }.eraseTo()
+            operationDefinition.map { ExecutableDefinitionOperation(it) }.eraseTo(),
+            fragmentDefinition.map { ExecutableDefinitionFragment(it) }.eraseTo()
     ))
 
     // definition -> [ executableDefinition typeSystemDefinition TypeSystemExtension ]
     val definition: Parser<Definition> = oneOf(listOf(
-            executableDefinition.map { Definition.DefinitionExecutable(it) }.eraseTo()
+            executableDefinition.map { DefinitionExecutable(it) }.eraseTo()
             // typeSystemDefinition, // GraphQL schema and other types not supported
             // TypeSystemExtension, // GraphQL schema and other types not supported
     ))
@@ -564,9 +564,9 @@ class GraphQl {
         ))
 
         selectionDeferred = oneOf(listOf(
-                field.map { Selection.SelectionField(it) },
-                fragmentSpread.map { Selection.SelectionFragmentSpread(it) },
-                inlineFragment.map { Selection.SelectionInlineFragment(it) }
+                field.map { SelectionField(it) },
+                fragmentSpread.map { SelectionFragmentSpread(it) },
+                inlineFragment.map { SelectionInlineFragment(it) }
         ))
     }
 }

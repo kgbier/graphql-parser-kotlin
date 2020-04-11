@@ -4,19 +4,16 @@ data class Document(
         val definitions: List<Definition>
 )
 
-sealed class Definition {
-    data class DefinitionExecutable(val definition: ExecutableDefinition) : Definition()
-}
+data class DefinitionExecutable(val definition: ExecutableDefinition) : Definition()
+sealed class Definition
 
-sealed class ExecutableDefinition {
-    data class ExecutableDefinitionOperation(val definition: OperationDefinition) : ExecutableDefinition()
-    data class ExecutableDefinitionFragment(val definition: FragmentDefinition) : ExecutableDefinition()
-}
+sealed class ExecutableDefinition
+data class ExecutableDefinitionOperation(val definition: OperationDefinition) : ExecutableDefinition()
+data class ExecutableDefinitionFragment(val definition: FragmentDefinition) : ExecutableDefinition()
 
+data class OperationDefinitionOperation(val definition: Operation) : OperationDefinition()
+data class OperationDefinitionSelectionSet(val selectionSet: List<Selection>) : OperationDefinition()
 sealed class OperationDefinition {
-    data class OperationDefinitionOperation(val definition: Operation) : OperationDefinition()
-    data class OperationDefinitionSelectionSet(val selectionSet: List<Selection>) : OperationDefinition()
-
     data class Operation(
             val operationType: OperationType,
             val name: String?,
@@ -60,11 +57,10 @@ data class Field(
         val selectionSet: List<Selection>
 )
 
-sealed class Selection {
-    data class SelectionField(val selection: Field) : Selection()
-    data class SelectionFragmentSpread(val selection: FragmentSpread) : Selection()
-    data class SelectionInlineFragment(val selection: InlineFragment) : Selection()
-}
+data class SelectionField(val selection: Field) : Selection()
+data class SelectionFragmentSpread(val selection: FragmentSpread) : Selection()
+data class SelectionInlineFragment(val selection: InlineFragment) : Selection()
+sealed class Selection
 
 data class Directive(
         val name: String,
