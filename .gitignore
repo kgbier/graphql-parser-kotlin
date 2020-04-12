@@ -9,3 +9,6 @@ build
 
 # Gradle
 .idea/**/gradle.xml
+
+# Auto-Import
+.idea/**/compiler.xml
