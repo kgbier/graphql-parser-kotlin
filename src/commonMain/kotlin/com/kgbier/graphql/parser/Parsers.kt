@@ -2,6 +2,7 @@ package com.kgbier.graphql.parser
 
 import com.kgbier.graphql.parser.structure.Maybe
 import com.kgbier.graphql.parser.substring.Substring
+import com.kgbier.kotlin.text.isDigit
 
 internal object Parsers {
 

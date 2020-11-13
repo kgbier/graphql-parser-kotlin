@@ -11,6 +11,8 @@ import com.kgbier.graphql.parser.Parsers.oneOf
 import com.kgbier.graphql.parser.Parsers.oneOrMore
 import com.kgbier.graphql.parser.Parsers.zeroOrMore
 import com.kgbier.graphql.parser.structure.*
+import com.kgbier.kotlin.text.isDigit
+import com.kgbier.kotlin.text.isLetterOrDigit
 
 internal class GraphQl {
 

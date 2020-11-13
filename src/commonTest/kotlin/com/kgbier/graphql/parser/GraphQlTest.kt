@@ -1,7 +1,7 @@
 package com.kgbier.graphql.parser
 
 import com.kgbier.graphql.parser.structure.*
-import org.junit.Test
+import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertNotNull
 import kotlin.test.assertNull
