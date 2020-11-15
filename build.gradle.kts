@@ -9,6 +9,10 @@ repositories {
 
 kotlin {
     jvm()
+    js {
+        browser ()
+        nodejs ()
+    }
 
     sourceSets {
         val commonMain by sourceSets.getting { }
@@ -27,6 +31,11 @@ kotlin {
             dependencies {
                 implementation(kotlin("test"))
                 implementation(kotlin("test-junit"))
+            }
+        }
+        val jsTest by sourceSets.getting {
+            dependencies {
+                implementation(kotlin("test-js"))
             }
         }
     }
