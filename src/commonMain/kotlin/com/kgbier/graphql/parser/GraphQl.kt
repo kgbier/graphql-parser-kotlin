@@ -560,8 +560,8 @@ internal class GraphQl {
         ))
 
         typeDeferred = oneOf(listOf(
-                listType,
                 nonNullType,
+                listType,
                 namedType
         ))
 

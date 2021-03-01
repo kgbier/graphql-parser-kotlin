@@ -232,6 +232,7 @@ internal class GraphQlTest {
 
         assertEquals("[Int]!!", testSubject("[Int]!"))
         assertEquals("Int!!", testSubject("Int!"))
+        assertEquals("[Int!!]!!", testSubject("[Int!]!"))
     }
 
     @Test
@@ -257,6 +258,10 @@ internal class GraphQlTest {
         assertEquals(VariableDefinition("abc", "Int", null), testSubject("\$abc : Int"))
         assertEquals(VariableDefinition("abc", "Int", Value.ValueInt("123")), testSubject("\$abc : Int = 123"))
         assertEquals(VariableDefinition("abc", "Int", Value.ValueInt("123")), testSubject("\$abc:Int=123"))
+        assertEquals(VariableDefinition("abc", "[Int]", null), testSubject("\$abc:[Int]"))
+        assertEquals(VariableDefinition("abc", "[Int!!]", null), testSubject("\$abc:[Int!]"))
+        assertEquals(VariableDefinition("abc", "[Int]!!", null), testSubject("\$abc:[Int]!"))
+        assertEquals(VariableDefinition("abc", "[Int!!]!!", null), testSubject("\$abc:[Int!]!"))
     }
 
     @Test
