@@ -2,7 +2,6 @@ package com.kgbier.graphql.parser
 
 import com.kgbier.graphql.parser.structure.Maybe
 import com.kgbier.graphql.parser.substring.Substring
-import com.kgbier.kotlin.text.isDigit
 
 internal object Parsers {
 
@@ -25,7 +24,7 @@ internal object Parsers {
     fun <A> zeroOrMore(p: Parser<A>) = zeroOrMore<A, Unit>(p, null)
 
     fun <A, B> zeroOrMore(p: Parser<A>, separatedBy: Parser<B>?) = object : Parser<List<A>> {
-        override fun run(str: Substring): List<A>? {
+        override fun run(str: Substring): List<A> {
             var remainderState = str.state
             val matches = mutableListOf<A>()
             while (true) {
@@ -68,7 +67,7 @@ internal object Parsers {
     }
 
     fun <A> maybe(p: Parser<A>) = object : Parser<Maybe<A>> {
-        override fun run(str: Substring): Maybe<A>? {
+        override fun run(str: Substring): Maybe<A> {
             val match = p.parse(str)
             return Maybe(match)
         }
@@ -112,8 +111,7 @@ internal object Parsers {
     }
 
     // TODO: consider `Substring` instead of `String`?
-    fun prefix(predicate: (Char) -> Boolean) = object :
-            Parser<String> {
+    fun prefix(predicate: (Char) -> Boolean) = object : Parser<String> {
         override fun run(str: Substring): String? {
             val result = str.takeWhile(predicate)
             return if (result.isNotEmpty()) {

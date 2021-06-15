@@ -1,14 +1,7 @@
 package com.kgbier.graphql.parser
 
+import com.kgbier.graphql.parser.structure.*
 import com.kgbier.graphql.parser.substring.Substring
-import com.kgbier.graphql.parser.structure.Tuple2
-import com.kgbier.graphql.parser.structure.Tuple3
-import com.kgbier.graphql.parser.structure.Tuple4
-import com.kgbier.graphql.parser.structure.Tuple5
-import com.kgbier.graphql.parser.structure.Tuple6
-import com.kgbier.graphql.parser.structure.Tuple7
-import com.kgbier.graphql.parser.structure.Tuple8
-import com.kgbier.graphql.parser.structure.Tuple9
 
 internal interface Parser<A> {
     fun run(str: Substring): A?
@@ -58,85 +51,85 @@ internal fun <A, B> zip(a: Parser<A>, b: Parser<B>): Parser<Tuple2<A, B>> = obje
 }
 
 internal fun <A, B, C> zip(
-        a: Parser<A>,
-        b: Parser<B>,
-        c: Parser<C>
+    a: Parser<A>,
+    b: Parser<B>,
+    c: Parser<C>
 ): Parser<Tuple3<A, B, C>> = zip(a, zip(b, c))
-        .map { (a, bc) ->
-            Tuple3(a, bc.first, bc.second)
-        }
+    .map { (a, bc) ->
+        Tuple3(a, bc.first, bc.second)
+    }
 
 internal fun <A, B, C, D> zip(
-        a: Parser<A>,
-        b: Parser<B>,
-        c: Parser<C>,
-        d: Parser<D>
+    a: Parser<A>,
+    b: Parser<B>,
+    c: Parser<C>,
+    d: Parser<D>
 ): Parser<Tuple4<A, B, C, D>> = zip(a, zip(b, c, d))
-        .map { (a, bcd) ->
-            Tuple4(a, bcd.first, bcd.second, bcd.third)
-        }
+    .map { (a, bcd) ->
+        Tuple4(a, bcd.first, bcd.second, bcd.third)
+    }
 
 internal fun <A, B, C, D, E> zip(
-        a: Parser<A>,
-        b: Parser<B>,
-        c: Parser<C>,
-        d: Parser<D>,
-        e: Parser<E>
+    a: Parser<A>,
+    b: Parser<B>,
+    c: Parser<C>,
+    d: Parser<D>,
+    e: Parser<E>
 ): Parser<Tuple5<A, B, C, D, E>> = zip(a, zip(b, c, d, e))
-        .map { (a, bcde) ->
-            Tuple5(a, bcde.first, bcde.second, bcde.third, bcde.fourth)
-        }
+    .map { (a, bcde) ->
+        Tuple5(a, bcde.first, bcde.second, bcde.third, bcde.fourth)
+    }
 
 internal fun <A, B, C, D, E, F> zip(
-        a: Parser<A>,
-        b: Parser<B>,
-        c: Parser<C>,
-        d: Parser<D>,
-        e: Parser<E>,
-        f: Parser<F>
+    a: Parser<A>,
+    b: Parser<B>,
+    c: Parser<C>,
+    d: Parser<D>,
+    e: Parser<E>,
+    f: Parser<F>
 ): Parser<Tuple6<A, B, C, D, E, F>> = zip(a, zip(b, c, d, e, f))
-        .map { (a, bcdef) ->
-            Tuple6(a, bcdef.first, bcdef.second, bcdef.third, bcdef.fourth, bcdef.fifth)
-        }
+    .map { (a, bcdef) ->
+        Tuple6(a, bcdef.first, bcdef.second, bcdef.third, bcdef.fourth, bcdef.fifth)
+    }
 
 internal fun <A, B, C, D, E, F, G> zip(
-        a: Parser<A>,
-        b: Parser<B>,
-        c: Parser<C>,
-        d: Parser<D>,
-        e: Parser<E>,
-        f: Parser<F>,
-        g: Parser<G>
+    a: Parser<A>,
+    b: Parser<B>,
+    c: Parser<C>,
+    d: Parser<D>,
+    e: Parser<E>,
+    f: Parser<F>,
+    g: Parser<G>
 ): Parser<Tuple7<A, B, C, D, E, F, G>> = zip(a, zip(b, c, d, e, f, g))
-        .map { (a, bcdefg) ->
-            Tuple7(a, bcdefg.first, bcdefg.second, bcdefg.third, bcdefg.fourth, bcdefg.fifth, bcdefg.sixth)
-        }
+    .map { (a, bcdefg) ->
+        Tuple7(a, bcdefg.first, bcdefg.second, bcdefg.third, bcdefg.fourth, bcdefg.fifth, bcdefg.sixth)
+    }
 
 internal fun <A, B, C, D, E, F, G, H> zip(
-        a: Parser<A>,
-        b: Parser<B>,
-        c: Parser<C>,
-        d: Parser<D>,
-        e: Parser<E>,
-        f: Parser<F>,
-        g: Parser<G>,
-        h: Parser<H>
+    a: Parser<A>,
+    b: Parser<B>,
+    c: Parser<C>,
+    d: Parser<D>,
+    e: Parser<E>,
+    f: Parser<F>,
+    g: Parser<G>,
+    h: Parser<H>
 ): Parser<Tuple8<A, B, C, D, E, F, G, H>> = zip(a, zip(b, c, d, e, f, g, h))
-        .map { (a, bcdefgh) ->
-            Tuple8(a, bcdefgh.first, bcdefgh.second, bcdefgh.third, bcdefgh.fourth, bcdefgh.fifth, bcdefgh.sixth, bcdefgh.seventh)
-        }
+    .map { (a, bcdefgh) ->
+        Tuple8(a, bcdefgh.first, bcdefgh.second, bcdefgh.third, bcdefgh.fourth, bcdefgh.fifth, bcdefgh.sixth, bcdefgh.seventh)
+    }
 
 internal fun <A, B, C, D, E, F, G, H, I> zip(
-        a: Parser<A>,
-        b: Parser<B>,
-        c: Parser<C>,
-        d: Parser<D>,
-        e: Parser<E>,
-        f: Parser<F>,
-        g: Parser<G>,
-        h: Parser<H>,
-        i: Parser<I>
+    a: Parser<A>,
+    b: Parser<B>,
+    c: Parser<C>,
+    d: Parser<D>,
+    e: Parser<E>,
+    f: Parser<F>,
+    g: Parser<G>,
+    h: Parser<H>,
+    i: Parser<I>
 ): Parser<Tuple9<A, B, C, D, E, F, G, H, I>> = zip(a, zip(b, c, d, e, f, g, h, i))
-        .map { (a, bcdefghi) ->
-            Tuple9(a, bcdefghi.first, bcdefghi.second, bcdefghi.third, bcdefghi.fourth, bcdefghi.fifth, bcdefghi.sixth, bcdefghi.seventh, bcdefghi.eighth)
-        }
+    .map { (a, bcdefghi) ->
+        Tuple9(a, bcdefghi.first, bcdefghi.second, bcdefghi.third, bcdefghi.fourth, bcdefghi.fifth, bcdefghi.sixth, bcdefghi.seventh, bcdefghi.eighth)
+    }

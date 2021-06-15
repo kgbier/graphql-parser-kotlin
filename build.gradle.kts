@@ -1,6 +1,6 @@
 plugins {
     // Apply the Kotlin JVM plugin to add support for Kotlin
-    kotlin("multiplatform") version "1.4.10"
+    kotlin("multiplatform") version "1.5.10"
 }
 
 repositories {
@@ -15,27 +15,16 @@ kotlin {
     }
 
     sourceSets {
-        val commonMain by sourceSets.getting { }
-        val commonTest by sourceSets.getting {
+        val commonTest by getting {
             dependencies {
-                implementation(kotlin("test-common"))
-                implementation(kotlin("test-annotations-common"))
+                // This brings the dependency
+                // on JUnit 4 transitively
+                implementation(kotlin("test"))
             }
         }
-        val jvmMain by sourceSets.getting {
+        val jvmMain by getting {
             dependencies {
                 implementation(kotlin("reflect"))
-            }
-        }
-        val jvmTest by sourceSets.getting {
-            dependencies {
-                implementation(kotlin("test"))
-                implementation(kotlin("test-junit"))
-            }
-        }
-        val jsTest by sourceSets.getting {
-            dependencies {
-                implementation(kotlin("test-js"))
             }
         }
     }

@@ -20,7 +20,7 @@ class Substring(string: String) : CharSequence {
     override fun get(index: Int): Char = backingString[index + range.first]
 
     override fun subSequence(startIndex: Int, endIndex: Int): CharSequence =
-            backingString.subSequence(startIndex + range.first, endIndex + range.first)
+        backingString.subSequence(startIndex + range.first, endIndex + range.first)
 
 
     override fun toString(): String = backingString.substring(range.first, range.last)
