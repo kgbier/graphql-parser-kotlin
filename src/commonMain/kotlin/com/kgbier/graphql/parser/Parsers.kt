@@ -1,10 +1,16 @@
+/**
+ * Redundant Unit returns are necessary when running in JS.
+ * Functions which do not explicitly return a Unit value will return `undefined` in JS.
+ */
+@file:Suppress("RedundantUnitExpression")
+
 package com.kgbier.graphql.parser
 
 import com.kgbier.graphql.parser.structure.Maybe
 
 internal object Parsers {
 
-    val always: Parser<Unit> = Parser { }
+    val always: Parser<Unit> = Parser { Unit }
 
     fun <Output> always(constant: Output): Parser<Output> = Parser { constant }
 
@@ -62,6 +68,7 @@ internal object Parsers {
             val match = p(it)
             if (match != null) return@Parser null
         }
+        Unit
     }
 
     val int: Parser<Int> = Parser {
@@ -90,6 +97,7 @@ internal object Parsers {
     fun literal(literal: String): Parser<Unit> = Parser {
         if (it.startsWith(literal)) {
             it.advance(literal.length)
+            Unit
         } else null
     }
 
