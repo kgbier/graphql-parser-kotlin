@@ -11,7 +11,7 @@ object GraphQLParser {
 
     internal fun parseWithResult(str: String): GraphQlParseResult {
         val result = parser.document.parse(str.trim())
-        return GraphQlParseResult(result.match, result.rest)
+        return GraphQlParseResult(result.match, result.remainder)
     }
 
     fun parse(str: String): Document? = parseWithResult(str).match

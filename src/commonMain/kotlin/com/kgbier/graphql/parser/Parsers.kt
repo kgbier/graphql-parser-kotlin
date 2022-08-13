@@ -1,123 +1,104 @@
 package com.kgbier.graphql.parser
 
 import com.kgbier.graphql.parser.structure.Maybe
-import com.kgbier.graphql.parser.substring.Substring
 
 internal object Parsers {
 
-    val always = object : Parser<Unit> {
-        override fun run(str: Substring) = Unit
-    }
+    val always: Parser<Unit> = Parser { }
 
-    fun <A> always(a: A) = object : Parser<A> {
-        override fun run(str: Substring) = a
-    }
+    fun <Output> always(constant: Output): Parser<Output> = Parser { constant }
 
-    fun <A> never() = object : Parser<A> {
-        override fun run(str: Substring): A? = null
-    }
+    fun <Output> never(): Parser<Output> = Parser { null }
 
-    fun <A> deferred(f: () -> Parser<A>) = object : Parser<A> {
-        override fun run(str: Substring): A? = f().parse(str)
-    }
+    fun <Output> deferred(provideParser: () -> Parser<Output>): Parser<Output> =
+        Parser { provideParser()(it) }
 
-    fun <A> zeroOrMore(p: Parser<A>) = zeroOrMore<A, Unit>(p, null)
+    fun <Output> maybe(parser: Parser<Output>): Parser<Maybe<Output>> =
+        Parser { Maybe(parser(it)) }
 
-    fun <A, B> zeroOrMore(p: Parser<A>, separatedBy: Parser<B>?) = object : Parser<List<A>> {
-        override fun run(str: Substring): List<A> {
-            var remainderState = str.state
-            val matches = mutableListOf<A>()
-            while (true) {
-                val match = p.parse(str) ?: break
-                remainderState = str.state
-                matches.add(match)
-                if (separatedBy != null) {
-                    separatedBy.parse(str) ?: return matches
-                }
+    fun <Output> zeroOrMore(parser: Parser<Output>) =
+        zeroOrMore<Output, Unit>(parser, null)
+
+    fun <Output, SeparatedBy> zeroOrMore(
+        parser: Parser<Output>,
+        separatedBy: Parser<SeparatedBy>?,
+    ): Parser<List<Output>> = Parser {
+        var remainderState = it.state
+        val matches = mutableListOf<Output>()
+        while (true) {
+            val match = parser(it) ?: break
+            remainderState = it.state
+            matches.add(match)
+            if (separatedBy != null) {
+                separatedBy(it) ?: return@Parser matches
             }
-            str.state = remainderState
-            return matches
         }
+        it.state = remainderState
+
+        matches
     }
 
-    fun <A> oneOrMore(p: Parser<A>) = oneOrMore<A, Unit>(p, null)
+    fun <Output> oneOrMore(parser: Parser<Output>) =
+        oneOrMore<Output, Unit>(parser, null)
 
-    fun <A, B> oneOrMore(p: Parser<A>, separatedBy: Parser<B>?) = zeroOrMore(p, separatedBy).flatMap {
+    fun <Output, SeparatedBy> oneOrMore(
+        parser: Parser<Output>,
+        separatedBy: Parser<SeparatedBy>?,
+    ) = zeroOrMore(parser, separatedBy).flatMap {
         if (it.isEmpty()) never() else always(it)
     }
 
-    fun <A> oneOf(ps: List<Parser<out A>>) = object : Parser<A> {
-        override fun run(str: Substring): A? {
-            for (p in ps) {
-                val match = p.run(str)
-                if (match != null) return match
-            }
-            return null
+    fun <Output> oneOf(parsers: List<Parser<out Output>>): Parser<Output> = Parser {
+        for (p in parsers) {
+            val match = p(it)
+            if (match != null) return@Parser match
+        }
+
+        null
+    }
+
+    fun <Output> notOneOf(parsers: List<Parser<Output>>): Parser<Unit> = Parser {
+        for (p in parsers) {
+            val match = p(it)
+            if (match != null) return@Parser null
         }
     }
 
-    fun <A> notOneOf(ps: List<Parser<A>>) = object : Parser<Unit> {
-        override fun run(str: Substring): Unit? {
-            for (p in ps) {
-                val match = p.run(str)
-                if (match != null) return null
-            }
-            return Unit
-        }
+    val int: Parser<Int> = Parser {
+        val result = it.takeWhile { it.isDigit() }
+        if (result.isNotEmpty()) {
+            it.advance(result.length)
+            result.toString().toIntOrNull()
+        } else null
     }
 
-    fun <A> maybe(p: Parser<A>) = object : Parser<Maybe<A>> {
-        override fun run(str: Substring): Maybe<A> {
-            val match = p.parse(str)
-            return Maybe(match)
-        }
+    val char: Parser<Char> = Parser {
+        if (it.isNotEmpty()) {
+            val result = it.first()
+            it.advance()
+            result
+        } else null
     }
 
-    val integer = object : Parser<Int> {
-        override fun run(str: Substring): Int? {
-            val result = str.takeWhile { it.isDigit() }
-            return if (result.isNotEmpty()) {
-                str.advance(result.length)
-                result.toString().toInt()
-            } else null
-        }
+    fun character(char: Char): Parser<Char> = Parser {
+        if (it.isNotEmpty() && it.first() == char) {
+            it.advance()
+            char
+        } else null
     }
 
-    val character = object : Parser<Char> {
-        override fun run(str: Substring): Char? {
-            return if (str.isNotEmpty()) {
-                val result = str.first()
-                str.advance()
-                result
-            } else null
-        }
-    }
-
-    fun character(char: Char) = object : Parser<Char> {
-        override fun run(str: Substring): Char? {
-            return if (str.isNotEmpty() && str.first() == char) {
-                str.advance()
-                char
-            } else null
-        }
-    }
-
-    fun literal(literal: String) = object : Parser<Unit> {
-        override fun run(str: Substring): Unit? {
-            return if (str.startsWith(literal)) {
-                str.advance(literal.length)
-            } else null
-        }
+    fun literal(literal: String): Parser<Unit> = Parser {
+        if (it.startsWith(literal)) {
+            it.advance(literal.length)
+        } else null
     }
 
     // TODO: consider `Substring` instead of `String`?
-    fun prefix(predicate: (Char) -> Boolean) = object : Parser<String> {
-        override fun run(str: Substring): String? {
-            val result = str.takeWhile(predicate)
-            return if (result.isNotEmpty()) {
-                str.advance(result.length)
-                result.toString()
-            } else null
-        }
+    fun prefix(predicate: (Char) -> Boolean): Parser<String> = Parser {
+        val result = it.takeWhile(predicate)
+        if (result.isNotEmpty()) {
+            it.advance(result.length)
+            result.toString()
+        } else null
     }
 }
