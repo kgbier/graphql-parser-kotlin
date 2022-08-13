@@ -1,10 +1,10 @@
 plugins {
     // Apply the Kotlin JVM plugin to add support for Kotlin
-    kotlin("multiplatform") version "1.7.0"
+    kotlin("multiplatform") version "1.7.10"
 }
 
 repositories {
-    jcenter()
+    mavenCentral()
 }
 
 kotlin {
