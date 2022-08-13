@@ -148,6 +148,16 @@ internal class GraphQlTest {
     }
 
     @Test
+    fun stringCharacter() {
+        fun testSubject(str: String): Char? = graphQlparser.stringCharacter.parse(str).match
+
+        assertEquals('H', testSubject("H"))
+        assertNull(testSubject("\""))
+        assertNull(testSubject("\n"))
+        assertNull(testSubject("\r"))
+    }
+
+    @Test
     fun stringValue() {
         fun testSubject(str: String): Value? = graphQlparser.stringValue.parse(str).match
 

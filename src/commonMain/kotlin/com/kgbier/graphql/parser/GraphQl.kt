@@ -1,6 +1,7 @@
 package com.kgbier.graphql.parser
 
 import com.kgbier.graphql.parser.Parsers.always
+import com.kgbier.graphql.parser.Parsers.char
 import com.kgbier.graphql.parser.Parsers.character
 import com.kgbier.graphql.parser.Parsers.deferred
 import com.kgbier.graphql.parser.Parsers.literal
@@ -19,7 +20,7 @@ internal class GraphQl {
      */
 
     // sourceChar -> '[\u0009\u000A\u000D\u0020-\uFFFF]'
-    val sourceChar = character
+    val sourceChar = char
 
     // name -> '[_A-Za-z][_0-9A-Za-z]'
     val name = Parsers.prefix { it.isLetterOrDigit() || it == '_' }
@@ -63,7 +64,7 @@ internal class GraphQl {
     // commentChar -> sourceChar != lineTerminator
     val commentChar = zip(
         notOneOf(listOf(lineTerminator)),
-        character
+        char
     ).map { (_, c) -> c }
 
     // comment -> " '#' { commentChar }? "

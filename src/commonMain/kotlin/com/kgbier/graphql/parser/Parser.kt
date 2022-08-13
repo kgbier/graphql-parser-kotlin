@@ -3,51 +3,46 @@ package com.kgbier.graphql.parser
 import com.kgbier.graphql.parser.structure.*
 import com.kgbier.graphql.parser.substring.Substring
 
-internal interface Parser<A> {
-    fun run(str: Substring): A?
+internal fun interface Parser<Output> {
+    operator fun invoke(str: Substring): Output?
 }
 
-internal fun <A> Parser<A>.parse(str: Substring) = run(str)
-
-internal data class ParseResult<A>(val match: A?, val rest: Substring)
+internal data class ParseResult<Output>(val match: Output?, val remainder: Substring)
 
 internal fun <A> Parser<A>.parse(str: String): ParseResult<A> {
     val substring = Substring(str)
-    val match = parse(substring)
+    val match = invoke(substring)
     return ParseResult(match, substring)
 }
 
-internal inline fun <A, B> Parser<A>.map(crossinline f: (A) -> B): Parser<B> = object : Parser<B> {
-    override fun run(str: Substring): B? = this@map.parse(str)?.let(f)
+internal inline fun <A, B> Parser<A>.map(
+    crossinline transform: (A) -> B,
+): Parser<B> = Parser { invoke(it)?.let(transform) }
+
+internal fun <A> Parser<A>.erase(): Parser<Unit> =
+    Parser { invoke(it)?.let { } }
+
+internal inline fun <A, B> Parser<A>.flatMap(
+    crossinline f: (A) -> Parser<B>,
+): Parser<B> = Parser {
+    val originalState = it.state
+    val matchA = invoke(it)
+    val parserB = matchA?.let(f)
+    val matchB = parserB?.invoke(it)
+    if (matchB == null) {
+        it.state = originalState
+        null
+    } else matchB
 }
 
-internal fun <A> Parser<A>.erase(): Parser<Unit> = object : Parser<Unit> {
-    override fun run(str: Substring) = this@erase.parse(str)?.let { Unit }
-}
-
-internal inline fun <A, B> Parser<A>.flatMap(crossinline f: (A) -> Parser<B>): Parser<B> = object : Parser<B> {
-    override fun run(str: Substring): B? {
-        val originalState = str.state
-        val matchA = this@flatMap.parse(str)
-        val parserB = matchA?.let(f)
-        val matchB = parserB?.parse(str)
-        return if (matchB == null) {
-            str.state = originalState
-            null
-        } else matchB
-    }
-}
-
-internal fun <A, B> zip(a: Parser<A>, b: Parser<B>): Parser<Tuple2<A, B>> = object : Parser<Tuple2<A, B>> {
-    override fun run(str: Substring): Tuple2<A, B>? {
-        val originalState = str.state
-        val resultA = a.parse(str) ?: return null
-        val resultB = b.parse(str)
-        return if (resultB == null) {
-            str.state = originalState
-            null
-        } else Tuple2(resultA, resultB)
-    }
+internal fun <A, B> zip(a: Parser<A>, b: Parser<B>): Parser<Tuple2<A, B>> = Parser {
+    val originalState = it.state
+    val resultA = a(it) ?: return@Parser null
+    val resultB = b(it)
+    if (resultB == null) {
+        it.state = originalState
+        null
+    } else Tuple2(resultA, resultB)
 }
 
 internal fun <A, B, C> zip(
