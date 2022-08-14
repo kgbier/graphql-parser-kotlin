@@ -10,6 +10,7 @@ import com.kgbier.graphql.parser.Parsers.never
 import com.kgbier.graphql.parser.Parsers.notOneOf
 import com.kgbier.graphql.parser.Parsers.oneOf
 import com.kgbier.graphql.parser.Parsers.oneOrMore
+import com.kgbier.graphql.parser.Parsers.predicate
 import com.kgbier.graphql.parser.Parsers.zeroOrMore
 import com.kgbier.graphql.parser.structure.*
 
@@ -23,7 +24,7 @@ internal class GraphQl {
     val sourceChar = char
 
     // name -> '[_A-Za-z][_0-9A-Za-z]'
-    val name = Parsers.prefix { it.isLetterOrDigit() || it == '_' }
+    val name = predicate { it.isLetterOrDigit() || it == '_' }
         .flatMap { if (it.isNotEmpty() && !it.first().isDigit()) always(it) else never() }
 
     // whiteSpace -> [ '\s' '\t' ]
@@ -101,8 +102,21 @@ internal class GraphQl {
      */
 
     // value -> [ variable intValue floatValue stringValue booleanValue nullValue listValue objectValue ]
-    var value = deferred { valueDeferred }
-    var valueDeferred: Parser<Value> = never()
+    val value: Parser<Value> = deferred {
+        oneOf(
+            listOf(
+                variableValue,
+                stringValue,
+                objectValue,
+                listValue,
+                nullValue,
+                booleanValue,
+                enumValue,
+                floatValue,
+                intValue
+            )
+        )
+    }
 
     // negativeSign -> '-'
     val negativeSign = character('-')
@@ -321,8 +335,15 @@ internal class GraphQl {
      */
 
     // type -> [ namedType listType nonNullType ]
-    val type = deferred { typeDeferred }
-    var typeDeferred: Parser<String> = never()
+    val type: Parser<String> = deferred {
+        oneOf(
+            listOf(
+                nonNullType,
+                listType,
+                namedType
+            )
+        )
+    }
 
     // namedType -> name
     val namedType = name
@@ -427,8 +448,13 @@ internal class GraphQl {
      */
 
     // selection -> [ field fragmentSpread inlineFragment ]
-    val selection = deferred { selectionDeferred }
-    var selectionDeferred: Parser<Selection> = never()
+    val selection: Parser<Selection> = deferred {
+        oneOf(listOf(
+            field.map { SelectionField(it) },
+            fragmentSpread.map { SelectionFragmentSpread(it) },
+            inlineFragment.map { SelectionInlineFragment(it) }
+        ))
+    }
 
     // selectionSet -> " '{' { selection } '}' "
     val selectionSet = zip(
@@ -586,34 +612,4 @@ internal class GraphQl {
     // document -> { definition }
     val document = oneOrMore(definition, tokenSeparator)
         .map { Document(it) }
-
-    init {
-        valueDeferred = oneOf(
-            listOf(
-                variableValue,
-                stringValue,
-                objectValue,
-                listValue,
-                nullValue,
-                booleanValue,
-                enumValue,
-                floatValue,
-                intValue
-            )
-        )
-
-        typeDeferred = oneOf(
-            listOf(
-                nonNullType,
-                listType,
-                namedType
-            )
-        )
-
-        selectionDeferred = oneOf(listOf(
-            field.map { SelectionField(it) },
-            fragmentSpread.map { SelectionFragmentSpread(it) },
-            inlineFragment.map { SelectionInlineFragment(it) }
-        ))
-    }
 }

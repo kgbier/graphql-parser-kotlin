@@ -16,13 +16,13 @@ internal object Parsers {
 
     fun <Output> never(): Parser<Output> = Parser { null }
 
-    fun <Output> deferred(provideParser: () -> Parser<Output>): Parser<Output> =
+    inline fun <Output> deferred(crossinline provideParser: () -> Parser<Output>): Parser<Output> =
         Parser { provideParser()(it) }
 
     fun <Output> maybe(parser: Parser<Output>): Parser<Maybe<Output>> =
         Parser { Maybe(parser(it)) }
 
-    fun <Output> zeroOrMore(parser: Parser<Output>) =
+    fun <Output> zeroOrMore(parser: Parser<Output>): Parser<List<Output>> =
         zeroOrMore<Output, Unit>(parser, null)
 
     fun <Output, SeparatedBy> zeroOrMore(
@@ -44,13 +44,13 @@ internal object Parsers {
         matches
     }
 
-    fun <Output> oneOrMore(parser: Parser<Output>) =
+    fun <Output> oneOrMore(parser: Parser<Output>): Parser<List<Output>> =
         oneOrMore<Output, Unit>(parser, null)
 
     fun <Output, SeparatedBy> oneOrMore(
         parser: Parser<Output>,
         separatedBy: Parser<SeparatedBy>?,
-    ) = zeroOrMore(parser, separatedBy).flatMap {
+    ): Parser<List<Output>> = zeroOrMore(parser, separatedBy).flatMap {
         if (it.isEmpty()) never() else always(it)
     }
 
@@ -68,6 +68,7 @@ internal object Parsers {
             val match = p(it)
             if (match != null) return@Parser null
         }
+
         Unit
     }
 
@@ -101,8 +102,9 @@ internal object Parsers {
         } else null
     }
 
-    // TODO: consider `Substring` instead of `String`?
-    fun prefix(predicate: (Char) -> Boolean): Parser<String> = Parser {
+    inline fun predicate(
+        crossinline predicate: (Char) -> Boolean,
+    ): Parser<String> = Parser {
         val result = it.takeWhile(predicate)
         if (result.isNotEmpty()) {
             it.advance(result.length)
