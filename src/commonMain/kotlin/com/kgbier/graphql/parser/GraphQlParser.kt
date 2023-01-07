@@ -2,9 +2,11 @@ package com.kgbier.graphql.parser
 
 import com.kgbier.graphql.parser.structure.Document
 import com.kgbier.graphql.parser.substring.Substring
+import kotlin.js.JsExport
 
 data class GraphQlParseResult(val match: Document?, val rest: Substring)
 
+@JsExport
 object GraphQLParser {
 
     private val parser = GraphQl()

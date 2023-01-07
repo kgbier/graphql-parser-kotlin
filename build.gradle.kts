@@ -12,6 +12,7 @@ kotlin {
     js(IR) {
         browser()
         nodejs()
+        binaries.executable()
     }
 
     sourceSets {
@@ -24,6 +25,12 @@ kotlin {
         val jvmMain by getting {
             dependencies {
                 implementation(kotlin("reflect"))
+            }
+        }
+
+        all {
+            languageSettings.apply {
+                optIn("kotlin.js.ExperimentalJsExport")
             }
         }
     }
