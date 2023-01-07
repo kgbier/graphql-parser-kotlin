@@ -30,6 +30,7 @@ kotlin {
 
         all {
             languageSettings.apply {
+                // https://kotlinlang.org/docs/js-to-kotlin-interop.html#jsexport-annotation
                 optIn("kotlin.js.ExperimentalJsExport")
             }
         }
