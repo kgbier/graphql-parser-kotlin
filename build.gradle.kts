@@ -1,6 +1,6 @@
 plugins {
     // Apply the Kotlin JVM plugin to add support for Kotlin
-    kotlin("multiplatform") version "1.7.10"
+    kotlin("multiplatform") version "1.8.0"
 }
 
 repositories {
@@ -9,7 +9,7 @@ repositories {
 
 kotlin {
     jvm()
-    js {
+    js(IR) {
         browser()
         nodejs()
     }
