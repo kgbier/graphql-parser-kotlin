@@ -70,10 +70,10 @@ internal class GraphQlTest {
     fun intValue() {
         fun testSubject(str: String): Value? = graphQlparser.intValue.parse(str).match
 
-        assertEquals(Value.ValueInt("123"), testSubject("123"))
-        assertEquals(Value.ValueInt("-123"), testSubject("-123"))
+        assertEquals(ValueInt("123"), testSubject("123"))
+        assertEquals(ValueInt("-123"), testSubject("-123"))
         assertNull(testSubject("0123"))
-        assertEquals(Value.ValueInt("-0"), testSubject("-0"))
+        assertEquals(ValueInt("-0"), testSubject("-0"))
     }
 
     @Test
@@ -131,17 +131,17 @@ internal class GraphQlTest {
     fun floatValue() {
         fun testSubject(str: String): Value? = graphQlparser.floatValue.parse(str).match
 
-        assertEquals(Value.ValueFloat("6.0221413:e+23"), testSubject("6.0221413e23"))
-        assertEquals(Value.ValueFloat("6.123"), testSubject("6.123"))
-        assertEquals(Value.ValueFloat("1:e+10"), testSubject("1e10"))
+        assertEquals(ValueFloat("6.0221413:e+23"), testSubject("6.0221413e23"))
+        assertEquals(ValueFloat("6.123"), testSubject("6.123"))
+        assertEquals(ValueFloat("1:e+10"), testSubject("1e10"))
     }
 
     @Test
     fun booleanValue() {
         fun testSubject(str: String): Value? = graphQlparser.booleanValue.parse(str).match
 
-        assertEquals(Value.ValueBoolean(true), testSubject("true"))
-        assertEquals(Value.ValueBoolean(false), testSubject("false"))
+        assertEquals(ValueBoolean(true), testSubject("true"))
+        assertEquals(ValueBoolean(false), testSubject("false"))
         assertNull(testSubject("a"))
         assertNull(testSubject("1"))
         assertNull(testSubject(" "))
@@ -161,10 +161,10 @@ internal class GraphQlTest {
     fun stringValue() {
         fun testSubject(str: String): Value? = graphQlparser.stringValue.parse(str).match
 
-        assertEquals(Value.ValueString("hello sailor"), testSubject("\"hello sailor\""))
-        assertEquals(Value.ValueString(" hello sailor "), testSubject("\" hello sailor \""))
-        assertEquals(Value.ValueString("123 abc"), testSubject("\"123 abc\""))
-        assertEquals(Value.ValueString(""), testSubject("\"\""))
+        assertEquals(ValueString("hello sailor"), testSubject("\"hello sailor\""))
+        assertEquals(ValueString(" hello sailor "), testSubject("\" hello sailor \""))
+        assertEquals(ValueString("123 abc"), testSubject("\"123 abc\""))
+        assertEquals(ValueString(""), testSubject("\"\""))
         assertNull(testSubject("hello sailor\""))
         assertNull(testSubject("\"hello sailor"))
     }
@@ -173,7 +173,7 @@ internal class GraphQlTest {
     fun nullValue() {
         fun testSubject(str: String): Value? = graphQlparser.nullValue.parse(str).match
 
-        assertEquals(Value.ValueNull, testSubject("null"))
+        assertEquals(ValueNull, testSubject("null"))
         assertNull(testSubject("012"))
         assertNull(testSubject("."))
         assertNull(testSubject("a"))
@@ -183,9 +183,9 @@ internal class GraphQlTest {
     fun enumValue() {
         fun testSubject(str: String): Value? = graphQlparser.enumValue.parse(str).match
 
-        assertEquals(Value.ValueEnum("abc"), testSubject("abc"))
-        assertEquals(Value.ValueEnum("abc123"), testSubject("abc123"))
-        assertEquals(Value.ValueEnum("ENUM_VALUE"), testSubject("ENUM_VALUE"))
+        assertEquals(ValueEnum("abc"), testSubject("abc"))
+        assertEquals(ValueEnum("abc123"), testSubject("abc123"))
+        assertEquals(ValueEnum("ENUM_VALUE"), testSubject("ENUM_VALUE"))
         assertNull(testSubject("true"))
         assertNull(testSubject("false"))
         assertNull(testSubject("null"))
@@ -196,32 +196,32 @@ internal class GraphQlTest {
     fun listValue() {
         fun testSubject(str: String): Value? = graphQlparser.listValue.parse(str).match
 
-        assertEquals(Value.ValueList(listOf()), testSubject("[ ]"))
-        assertEquals(Value.ValueList(listOf()), testSubject("[]"))
-        assertEquals(Value.ValueList(listOf()), testSubject("[ , ]"))
-        assertEquals(Value.ValueList(listOf(Value.ValueBoolean(true))), testSubject("[true]"))
-        assertEquals(Value.ValueList(listOf(Value.ValueBoolean(true), Value.ValueBoolean(false))), testSubject("[ true, false ]"))
+        assertEquals(ValueList(listOf()), testSubject("[ ]"))
+        assertEquals(ValueList(listOf()), testSubject("[]"))
+        assertEquals(ValueList(listOf()), testSubject("[ , ]"))
+        assertEquals(ValueList(listOf(ValueBoolean(true))), testSubject("[true]"))
+        assertEquals(ValueList(listOf(ValueBoolean(true), ValueBoolean(false))), testSubject("[ true, false ]"))
     }
 
     @Test
     fun objectField() {
         fun testSubject(str: String): ObjectField? = graphQlparser.objectField.parse(str).match
 
-        assertEquals(ObjectField("name", Value.ValueInt("123")), testSubject("name : 123"))
-        assertEquals(ObjectField("name", Value.ValueString("abc")), testSubject("name : \"abc\""))
+        assertEquals(ObjectField("name", ValueInt("123")), testSubject("name : 123"))
+        assertEquals(ObjectField("name", ValueString("abc")), testSubject("name : \"abc\""))
     }
 
     @Test
     fun objectValue() {
         fun testSubject(str: String): Value? = graphQlparser.objectValue.parse(str).match
 
-        assertEquals(Value.ValueObject(emptyList()), testSubject("{}"))
-        assertEquals(Value.ValueObject(emptyList()), testSubject("{ }"))
-        assertEquals(Value.ValueObject(emptyList()), testSubject("{ , }"))
-        assertEquals(Value.ValueObject(listOf(ObjectField("name", Value.ValueInt("123")))), testSubject("{name:123}"))
-        assertEquals(Value.ValueObject(listOf(ObjectField("name", Value.ValueInt("123")))), testSubject("{ name : 123 }"))
+        assertEquals(ValueObject(emptyList()), testSubject("{}"))
+        assertEquals(ValueObject(emptyList()), testSubject("{ }"))
+        assertEquals(ValueObject(emptyList()), testSubject("{ , }"))
+        assertEquals(ValueObject(listOf(ObjectField("name", ValueInt("123")))), testSubject("{name:123}"))
+        assertEquals(ValueObject(listOf(ObjectField("name", ValueInt("123")))), testSubject("{ name : 123 }"))
         assertEquals(
-            Value.ValueObject(listOf(ObjectField("nameone", Value.ValueInt("123")), ObjectField("nametwo", Value.ValueString("abc")))),
+            ValueObject(listOf(ObjectField("nameone", ValueInt("123")), ObjectField("nametwo", ValueString("abc")))),
             testSubject("{ nameone : 123, nametwo : \"abc\" }")
         )
     }
@@ -251,8 +251,8 @@ internal class GraphQlTest {
     fun defaultValue() {
         fun testSubject(str: String): Value? = graphQlparser.defaultValue.parse(str).match
 
-        assertEquals(Value.ValueString("abc"), testSubject("= \"abc\""))
-        assertEquals(Value.ValueInt("123"), testSubject("=123"))
+        assertEquals(ValueString("abc"), testSubject("= \"abc\""))
+        assertEquals(ValueInt("123"), testSubject("=123"))
     }
 
     @Test
@@ -268,8 +268,8 @@ internal class GraphQlTest {
         fun testSubject(str: String): VariableDefinition? = graphQlparser.variableDefinition.parse(str).match
 
         assertEquals(VariableDefinition("abc", "Int", null), testSubject("\$abc : Int"))
-        assertEquals(VariableDefinition("abc", "Int", Value.ValueInt("123")), testSubject("\$abc : Int = 123"))
-        assertEquals(VariableDefinition("abc", "Int", Value.ValueInt("123")), testSubject("\$abc:Int=123"))
+        assertEquals(VariableDefinition("abc", "Int", ValueInt("123")), testSubject("\$abc : Int = 123"))
+        assertEquals(VariableDefinition("abc", "Int", ValueInt("123")), testSubject("\$abc:Int=123"))
         assertEquals(VariableDefinition("abc", "[Int]", null), testSubject("\$abc:[Int]"))
         assertEquals(VariableDefinition("abc", "[Int!!]", null), testSubject("\$abc:[Int!]"))
         assertEquals(VariableDefinition("abc", "[Int]!!", null), testSubject("\$abc:[Int]!"))
@@ -280,20 +280,20 @@ internal class GraphQlTest {
     fun argument() {
         fun testSubject(str: String): Argument? = graphQlparser.argument.parse(str).match
 
-        assertEquals(Argument("abc", Value.ValueString("xyz")), testSubject("abc : \"xyz\""))
-        assertEquals(Argument("abc", Value.ValueInt("123")), testSubject("abc : 123"))
-        assertEquals(Argument("abc", Value.ValueInt("123")), testSubject("abc:123"))
+        assertEquals(Argument("abc", ValueString("xyz")), testSubject("abc : \"xyz\""))
+        assertEquals(Argument("abc", ValueInt("123")), testSubject("abc : 123"))
+        assertEquals(Argument("abc", ValueInt("123")), testSubject("abc:123"))
     }
 
     @Test
     fun arguments() {
         fun testSubject(str: String): List<Argument>? = graphQlparser.arguments.parse(str).match
 
-        assertEquals(listOf(Argument("abc", Value.ValueString("xyz"))), testSubject("(abc:\"xyz\")"))
-        assertEquals(listOf(Argument("abc", Value.ValueInt("123"))), testSubject("(abc:123)"))
-        assertEquals(listOf(Argument("abc", Value.ValueInt("123"))), testSubject("( abc : 123 )"))
+        assertEquals(listOf(Argument("abc", ValueString("xyz"))), testSubject("(abc:\"xyz\")"))
+        assertEquals(listOf(Argument("abc", ValueInt("123"))), testSubject("(abc:123)"))
+        assertEquals(listOf(Argument("abc", ValueInt("123"))), testSubject("( abc : 123 )"))
         assertEquals(
-            listOf(Argument("abc", Value.ValueInt("123")), Argument("def", Value.ValueString("xyz"))),
+            listOf(Argument("abc", ValueInt("123")), Argument("def", ValueString("xyz"))),
             testSubject("(abc : 123, def : \"xyz\")")
         )
     }
@@ -303,11 +303,11 @@ internal class GraphQlTest {
         fun testSubject(str: String): Directive? = graphQlparser.directive.parse(str).match
 
         assertEquals(
-            Directive("named", listOf(Argument("abc", Value.ValueString("xyz")))),
+            Directive("named", listOf(Argument("abc", ValueString("xyz")))),
             testSubject("@named (abc : \"xyz\")")
         )
         assertEquals(
-            Directive("named", listOf(Argument("abc", Value.ValueString("xyz")))),
+            Directive("named", listOf(Argument("abc", ValueString("xyz")))),
             testSubject("@named(abc : \"xyz\")")
         )
     }
@@ -318,8 +318,8 @@ internal class GraphQlTest {
 
         assertEquals(
             listOf(
-                Directive("named", listOf(Argument("abc", Value.ValueString("xyz")))),
-                Directive("other", listOf(Argument("abc", Value.ValueString("xyz"))))
+                Directive("named", listOf(Argument("abc", ValueString("xyz")))),
+                Directive("other", listOf(Argument("abc", ValueString("xyz"))))
             ),
             testSubject("@named (abc : \"xyz\") @other (abc : \"xyz\")")
         )
@@ -370,7 +370,7 @@ internal class GraphQlTest {
             testSubject("aliased:named")
         )
         assertEquals(
-            Field(null, "named", listOf(Argument("with", Value.ValueInt("123"))), emptyList(), emptyList()),
+            Field(null, "named", listOf(Argument("with", ValueInt("123"))), emptyList(), emptyList()),
             testSubject("named(with:123)")
         )
         assertEquals(
@@ -378,15 +378,15 @@ internal class GraphQlTest {
             testSubject("named@annotated")
         )
         assertEquals(
-            Field(null, "named", emptyList(), listOf(Directive("annotated", listOf(Argument("with", Value.ValueInt("123"))))), emptyList()),
+            Field(null, "named", emptyList(), listOf(Directive("annotated", listOf(Argument("with", ValueInt("123"))))), emptyList()),
             testSubject("named@annotated(with:123)")
         )
         assertEquals(
-            Field("alias", "named", listOf(Argument("with", Value.ValueInt("123"))), listOf(Directive("annotated", listOf(Argument("with", Value.ValueInt("456"))))), listOf(SelectionField(Field(null, "also", emptyList(), emptyList(), emptyList())))),
+            Field("alias", "named", listOf(Argument("with", ValueInt("123"))), listOf(Directive("annotated", listOf(Argument("with", ValueInt("456"))))), listOf(SelectionField(Field(null, "also", emptyList(), emptyList(), emptyList())))),
             testSubject("alias:named(with:123)@annotated(with:456){ also }")
         )
         assertEquals(
-            Field("alias", "named", listOf(Argument("with", Value.ValueInt("123"))), listOf(Directive("annotated", listOf(Argument("with", Value.ValueInt("456"))))), listOf(SelectionField(Field(null, "also", emptyList(), emptyList(), emptyList())))),
+            Field("alias", "named", listOf(Argument("with", ValueInt("123"))), listOf(Directive("annotated", listOf(Argument("with", ValueInt("456"))))), listOf(SelectionField(Field(null, "also", emptyList(), emptyList(), emptyList())))),
             testSubject("alias : named ( with : 123 ) @annotated ( with: 456 ) { also }")
         )
     }

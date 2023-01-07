@@ -167,7 +167,7 @@ internal class GraphQl {
     }
 
     // intValue -> integerPart
-    val intValue = integerPart.map { Value.ValueInt(it) }
+    val intValue = integerPart.map { ValueInt(it) }
 
     // exponentIndicator -> [ 'e' 'E' ]
     val exponentIndicator = oneOf(
@@ -208,22 +208,22 @@ internal class GraphQl {
     val floatValue = oneOf(listOf(
         zip(integerPart, fractionalPart, exponentPart)
             .map { (integerPart, fractionalPart, exponentPart) ->
-                Value.ValueFloat("$integerPart.$fractionalPart:$exponentPart")
+                ValueFloat("$integerPart.$fractionalPart:$exponentPart")
             },
         zip(integerPart, fractionalPart)
             .map { (integerPart, fractionalPart) ->
-                Value.ValueFloat("$integerPart.$fractionalPart")
+                ValueFloat("$integerPart.$fractionalPart")
             },
         zip(integerPart, exponentPart)
             .map { (integerPart, exponentPart) ->
-                Value.ValueFloat("$integerPart:$exponentPart")
+                ValueFloat("$integerPart:$exponentPart")
             }
     ))
 
     // booleanValue -> [ 'true' 'false' ]
     val booleanValue = oneOf(listOf(
-        literal("true").map { Value.ValueBoolean(true) },
-        literal("false").map { Value.ValueBoolean(false) }
+        literal("true").map { ValueBoolean(true) },
+        literal("false").map { ValueBoolean(false) }
     ))
 
     // TODO: unicode literal handling
@@ -268,11 +268,11 @@ internal class GraphQl {
         literal("\""),
         zeroOrMore(stringCharacter),
         literal("\"")
-    ).map { (_, chars, _) -> Value.ValueString(chars.joinToString("")) }
+    ).map { (_, chars, _) -> ValueString(chars.joinToString("")) }
     // TODO: block strings
 
     // nullValue -> 'null'
-    val nullValue = literal("null").map { Value.ValueNull }
+    val nullValue = literal("null").map { ValueNull }
 
     // enumValue -> name != [ booleanValue nullValue ]
     val enumValue = zip(
@@ -283,7 +283,7 @@ internal class GraphQl {
             )
         ),
         name
-    ).map { (_, name) -> Value.ValueEnum(name) }
+    ).map { (_, name) -> ValueEnum(name) }
 
     // listValue -> [ " '[' ']' "
     //                " '[' { value } ']' " ]
@@ -292,14 +292,14 @@ internal class GraphQl {
             literal("["),
             tokenSeparator,
             literal("]")
-        ).map { Value.ValueList(emptyList()) },
+        ).map { ValueList(emptyList()) },
         zip(
             literal("["),
             tokenSeparator,
             zeroOrMore(value, tokenSeparator),
             tokenSeparator,
             literal("]")
-        ).map { (_, _, values, _, _) -> Value.ValueList(values) }
+        ).map { (_, _, values, _, _) -> ValueList(values) }
     ))
 
     // objectField -> " name ':' value "
@@ -320,14 +320,14 @@ internal class GraphQl {
             literal("{"),
             tokenSeparator,
             literal("}")
-        ).map { Value.ValueObject(emptyList()) },
+        ).map { ValueObject(emptyList()) },
         zip(
             literal("{"),
             tokenSeparator,
             oneOrMore(objectField, tokenSeparator),
             tokenSeparator,
             literal("}")
-        ).map { (_, _, fields, _, _) -> Value.ValueObject(fields) }
+        ).map { (_, _, fields, _, _) -> ValueObject(fields) }
     ))
 
     /**
@@ -382,7 +382,7 @@ internal class GraphQl {
     ).map { (_, name) -> name }
 
     // Wrapper to use as a possible `value`
-    val variableValue = variable.map { Value.ValueVariable(it) }
+    val variableValue = variable.map { ValueVariable(it) }
 
     // variableDefinition -> " variable ':' type defaultValue? "
     val variableDefinition = zip(

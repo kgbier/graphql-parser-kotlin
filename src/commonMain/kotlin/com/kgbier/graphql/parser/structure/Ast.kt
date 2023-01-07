@@ -1,4 +1,8 @@
+@file:JsExport
+
 package com.kgbier.graphql.parser.structure
+
+import kotlin.js.JsExport
 
 data class Document(
     val definitions: List<Definition>
@@ -78,16 +82,15 @@ data class VariableDefinition(
     val defaultValue: Value?
 )
 
-sealed interface Value {
-    data class ValueVariable(val name: String) : Value
-    data class ValueInt(val value: String) : Value
-    data class ValueFloat(val value: String) : Value
-    data class ValueString(val value: String) : Value
-    data class ValueBoolean(val value: Boolean) : Value
-    object ValueNull : Value
-    data class ValueEnum(val value: String) : Value
-    data class ValueList(val value: List<Value>) : Value
-    data class ValueObject(val value: List<ObjectField>) : Value
-}
+sealed interface Value
+data class ValueVariable(val name: String) : Value
+data class ValueInt(val value: String) : Value
+data class ValueFloat(val value: String) : Value
+data class ValueString(val value: String) : Value
+data class ValueBoolean(val value: Boolean) : Value
+object ValueNull : Value
+data class ValueEnum(val value: String) : Value
+data class ValueList(val value: List<Value>) : Value
+data class ValueObject(val value: List<ObjectField>) : Value
 
 data class ObjectField(val name: String, val value: Value)
