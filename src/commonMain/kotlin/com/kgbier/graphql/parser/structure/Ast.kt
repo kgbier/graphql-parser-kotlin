@@ -88,7 +88,7 @@ data class ValueInt(val value: String) : Value
 data class ValueFloat(val value: String) : Value
 data class ValueString(val value: String) : Value
 data class ValueBoolean(val value: Boolean) : Value
-object ValueNull : Value
+data object ValueNull : Value
 data class ValueEnum(val value: String) : Value
 data class ValueList(val value: List<Value>) : Value
 data class ValueObject(val value: List<ObjectField>) : Value
