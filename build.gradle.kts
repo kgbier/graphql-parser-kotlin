@@ -1,6 +1,6 @@
 plugins {
     // Apply the Kotlin JVM plugin to add support for Kotlin
-    kotlin("multiplatform") version "1.8.0"
+    kotlin("multiplatform") version "2.1.21"
 }
 
 repositories {

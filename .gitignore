@@ -1,3 +1,16 @@
+.DS_Store
+
+.kotlin
+
+### Android Studio files ###
+.idea/assetWizardSettings.xml
+.idea/kotlinc.xml
+.idea/inspectionProfiles/Project_Default.xml
+.idea/deploymentTargetSelector.xml
+.idea/appInsightsSettings.xml
+.idea/other.xml
+.idea/AndroidProjectSystem.xml
+
 # Stolen from: https://github.com/github/gitignore/blob/master/Global/JetBrains.gitignore
 
 # Ignore Gradle project-specific cache directory
